@@ -1,1 +1,1 @@
-docker build -t fogros2_bootcamp .
+docker build -t cloudrobotics_tutorial .
