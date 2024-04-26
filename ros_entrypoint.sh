@@ -19,8 +19,12 @@ else
     # ids of the docker VM.  This usually results in files that are
     # uneditable without a sudo chmod on the host.  Here we create a
     # user with matching user and group ids.
-    # TODO: what if GROUP_ID does not exist?
     echo "Starting with USER: $USER, UID: $USER_ID, GID: $GROUP_ID"
+    # Check if group exists, create if not
+    if ! getent group $GROUP_ID > /dev/null; then
+        echo "Creating group with GID: $GROUP_ID"
+        groupadd -g $GROUP_ID group$GROUP_ID
+    fi
     useradd -s /bin/bash -d "$HOME" -u "$USER_ID" -g "$GROUP_ID" -G sudo -N -o -c "local user" -M "$USER"
 fi
 
@@ -42,5 +46,6 @@ chown "$USER_ID:$GROUP_ID" "$HOME"
 gosu "$USER_ID:$GROUP_ID" cp -rT /etc/skel "$HOME"
 
 # setup ros2 environment
-echo 'source "/opt/ros/$ROS_DISTRO/setup.bash" --' >> "$HOME/.bashrc"
+# echo 'source "/opt/ros/$ROS_DISTRO/setup.bash" --' >> "$HOME/.bashrc"
+echo "source \"/opt/ros/$ROS_DISTRO/setup.bash\"" >> "$HOME/.bashrc"
 exec gosu "$USER_ID:$GROUP_ID" "$@"
