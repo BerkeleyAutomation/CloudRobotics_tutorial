@@ -15,5 +15,5 @@ docker run -it --rm ^
        --mount src=/%WORKDIR:\=/%,target=%LINUXWORKDIR%,type=bind ^
        -v %USERPROFILE%\.aws:%LINUXHOME%/.aws ^
        --workdir %LINUXWORKDIR% ^
-       fogros2_bootcamp
+       cloudrobotics_tutorial
 
