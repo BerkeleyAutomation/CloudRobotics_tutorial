@@ -13,4 +13,4 @@ docker run -it --rm \
        --cap-add=NET_ADMIN \
        --mount src="$WORKDIR",target="$WORKDIR",type=bind \
        --workdir "$PWD" \
-       fogros2_bootcamp "$@"
+       cloudrobotics_tutorial "$@"
