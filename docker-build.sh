@@ -2,4 +2,4 @@
 
 cd "$(dirname "$0")"
 
-docker build -t fogros2_bootcamp .
+docker build -t cloudrobotics_tutorial .
