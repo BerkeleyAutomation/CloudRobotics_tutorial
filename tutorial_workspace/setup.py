@@ -49,6 +49,8 @@ setup(
         "console_scripts": [
             "talker = fogros2_tutorial.talker:main",
             "listener = fogros2_tutorial.listener:main",
+            "sam_client = fogros2_tutorial.sam_client:main",
+            "sam_server = fogros2_tutorial.sam_server:main",
         ],
     },
 )
