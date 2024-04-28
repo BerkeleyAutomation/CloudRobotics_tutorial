@@ -7,7 +7,7 @@ ENV USER=${USER}
 # ENV WORKDIR="$(cd $(dirname "$0") ; pwd)"
 
 # Create FogROS2 worspace and build it
-ENV ROS_WS=${HOME}/fog_ws
+ENV ROS_WS=${HOME}/workshop_ws
 RUN mkdir -p ${ROS_WS}/src
 WORKDIR ${ROS_WS}/src
 RUN git clone https://github.com/BerkeleyAutomation/FogROS2.git
