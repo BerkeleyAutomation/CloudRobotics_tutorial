@@ -8,7 +8,7 @@ cd ~
 git clone https://github.com/BerkeleyAutomation/CloudRobotics_tutorial.git
 ```
 
-If you do not have `git`, you can go to [https://github.com/BerkeleyAutomation/CloudRobotics_tutorial.git], then hit the green "code" button, and then "download zip".  Once you have the zip downloaded, extract the files so that `FogROS2_bootcamp` is in your home directory.
+If you do not have `git`, you can go to [https://github.com/BerkeleyAutomation/CloudRobotics_tutorial.git], then hit the green "code" button, and then "download zip".  Once you have the zip downloaded, extract the files so that `CloudRobotics_tutorial` is in your home directory.
 ```
 cd ~
 unzip ~/Downloads/CloudRobotics_tutorial-main.zip
