@@ -51,6 +51,8 @@ setup(
             "listener = fogros2_tutorial.listener:main",
             "sam_client = fogros2_tutorial.sam_client:main",
             "sam_server = fogros2_tutorial.sam_server:main",
+            "image_publisher = fogros2_tutorial.image_publisher:main",
+            "fog_rtx_recorder = fogros2_tutorial.fog_rtx_recorder:main",
         ],
     },
 )
