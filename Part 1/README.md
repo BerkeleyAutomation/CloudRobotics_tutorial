@@ -5,7 +5,7 @@ For this bootcamp, we recommend following the instructions below from your home 
 1. Clone Github Repository below your home directory
 ```
 cd ~
-git clone https://github.com/SimeonOA/FogROS2_bootcamp.git
+git clone https://github.com/SimeonOA/CloudRobotics_tutorial.git
 ```
 
 If you do not have `git`, you can go to [https://github.com/BerkeleyAutomation/CloudRobotics_tutorial.git], then hit the green "code" button, and then "download zip".  Once you have the zip downloaded, extract the files so that `FogROS2_bootcamp` is in your home directory.
