@@ -34,19 +34,21 @@ class SegmentAnythingServer(Node):
         self.host_name = socket.gethostname() + str(random.randint(0, 1000))
         self.get_logger().info(f'I am {self.host_name}. Starting publisher on /image/segmented.')
 
-        self.publisher_ = self.create_publisher(CompressedImage, '/image/segmented', 10)
+        self.publisher_ = self.create_publisher(CompressedImage, '/image/segmented', 2)
 
         self.subscription = self.create_subscription(
             CompressedImage,
             '/image',
             self.listener_callback,
-            10)
+            2)
 
         # Load the SAM model
+        self.get_logger().info('Loading SAM model...')
         model_path = "/home/ubuntu/models/sam_vit_h_4b8939.pth" 
         self.sam = sam_model_registry["default"](checkpoint=model_path)
         self.sam.to(device="cuda")  # Ensure CUDA is available, otherwise specify 'cpu'
         self.sam_mask_generator = SamAutomaticMaskGenerator(self.sam)
+        self.get_logger().info('SAM model loaded.')
 
     def listener_callback(self, msg):
         self.get_logger().info('Received image')
