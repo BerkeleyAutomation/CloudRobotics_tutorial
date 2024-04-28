@@ -8,7 +8,7 @@ def generate_launch_description():
     """Talker example that launches the listener on AWS."""
     ld = fogros2.FogROSLaunchDescription()
     machine1 = fogros2.AWSCloudInstance(
-        region="us-west-1", ec2_instance_type="g4dn.4xlarge", ami_image="ami-05394da34368a5cc1",
+        region="us-west-1", ec2_instance_type="g4dn.xlarge", ami_image="ami-05394da34368a5cc1",
         disk_size=35
     )
 

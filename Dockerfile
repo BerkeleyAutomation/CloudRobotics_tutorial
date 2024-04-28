@@ -11,8 +11,9 @@ ENV CYCLONEDDS_URI=file:///fog_ws/src/FogROS2/fogros2/configs/cyclonedds.ubuntu.
 ENV ROS_WS=/fog_ws
 RUN mkdir -p ${ROS_WS}/src
 WORKDIR ${ROS_WS}/src
-RUN git clone https://github.com/BerkeleyAutomation/FogROS2.git
 RUN git clone https://github.com/cloudgripper/cloudgripper-ros.git
+RUN git clone https://github.com/BerkeleyAutomation/FogROS2.git
+
 
 ENTRYPOINT [ "/ros_entrypoint.sh" ]
 CMD ["bash"]
