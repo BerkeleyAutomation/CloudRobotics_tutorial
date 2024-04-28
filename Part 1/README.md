@@ -8,11 +8,11 @@ cd ~
 git clone https://github.com/SimeonOA/FogROS2_bootcamp.git
 ```
 
-If you do not have `git`, you can go to [https://github.com/SimeonOA/FogROS2_bootcamp], then hit the green "code" button, and then "download zip".  Once you have the zip downloaded, extract the files so that `FogROS2_bootcamp` is in your home directory.
+If you do not have `git`, you can go to [https://github.com/BerkeleyAutomation/CloudRobotics_tutorial.git], then hit the green "code" button, and then "download zip".  Once you have the zip downloaded, extract the files so that `FogROS2_bootcamp` is in your home directory.
 ```
 cd ~
-unzip ~/Downloads/FogROS2_bootcamp-main.zip
-mv FogROS2_bootcamp-main FogROS2_bootcamp
+unzip ~/Downloads/CloudRobotics_tutorial-main.zip
+mv CloudRobotics_tutorial-main CloudRobotics_tutorial
 ```
 
 
@@ -22,14 +22,16 @@ From the checked out directory, run:
 
 MacOS
 ```
-cd ~/FogROS2_bootcamp
+cd ~/CloudRobotics_tutorial
+./docker-base-build.sh
 ./docker-build.sh
 ```
 
 Windows
 ```
-cd FogROS2_bootcamp
-docker-build.cmd
+cd CloudRobotics_tutorial
+./docker-base-build.cmd
+./docker-build.cmd
 ```
 
 This process may take a few minutes, and you'll see a lot of information scroll by.  If there is no error message, move on to the next step.  If there was an error message, it can usually be resolved by waiting a minute and running `./docker-build.sh` again until it works--most common problems are related to internet connections, either on your computer/wifi or on the server from which docker is downloading software.
@@ -39,7 +41,7 @@ To test if the docker build worked, try running:
 
 MacOS
 ```
-cd ~/FogROS2_bootcamp
+cd ~/CloudRobotics_tutorial
 ./docker-run.sh
 ```
 
@@ -52,7 +54,7 @@ You should get the following output similar to the following:
 ```
 $ ./docker-run.sh 
 Starting with USER: jeffi, UID: 501, GID: 20
-jeffi@docker-desktop:~/FogROS2_bootcamp$ 
+jeffi@docker-desktop:~/CloudRobotics_tutorial/fog_ws$ 
 ```
 If you got that, congrats!  Everything is working.  At this point, type `CTRL-D` to exit.
 
@@ -64,22 +66,10 @@ docker: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is t
 Then it means you need to start Docker Desktop and wait until the Docker Deskop window shows that it has started.
 
 
-3. Make a workspace
+3. Make a workspace and build it
 
-First start the  container again. Then in the container, run
+We have premade the workspace folder for you. First start the  container again. Then in the container, run
 ```
-cd ~/FogROS2_bootcamp
-mkdir -p fog_ws/src
-cd fog_ws/src
-```
-
-4. Create a package
-```
-ros2 pkg create --build-type ament_python fogros_camp
-```
-
-5. Build the workspace
-```
-cd ~/FogROS2_bootcamp/fog_ws
+cd ~/CloudRobotics_tutorial/fog_ws
 colcon build
 ```
