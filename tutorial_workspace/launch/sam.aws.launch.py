@@ -29,16 +29,16 @@ def generate_launch_description():
         disk_size=35
     )
 
-    listener_node = Node(
-        package="sam_ros", executable="sam_sub", output="screen"
+    sam_client_node = Node(
+        package="fogros2_tutorial", executable="sam_client", output="screen"
     )
 
-    talker_node = fogros2.CloudNode(
-        package="sam_ros",
-        executable="sam_pub",
+    sam_server_node = fogros2.CloudNode(
+        package="fogros2_tutorial",
+        executable="sam_server",
         output="screen",
         machine=machine1,
     )
-    ld.add_action(talker_node)
-    ld.add_action(listener_node)
+    ld.add_action(sam_client_node)
+    ld.add_action(sam_server_node)
     return ld

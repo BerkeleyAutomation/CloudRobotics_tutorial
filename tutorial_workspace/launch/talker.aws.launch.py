@@ -10,11 +10,11 @@ def generate_launch_description():
     )
 
     listener_node = Node(
-        package="fogros2_examples", executable="listener", output="screen"
+        package="fogros2_tutorial", executable="listener", output="screen"
     )
 
     talker_node = fogros2.CloudNode(
-        package="fogros2_examples",
+        package="fogros2_tutorial",
         executable="talker",
         output="screen",
         machine=machine1,
