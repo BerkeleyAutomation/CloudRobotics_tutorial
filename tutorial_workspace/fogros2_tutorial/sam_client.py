@@ -42,8 +42,8 @@ class SegmentAnythingClient(Node):
                 # Publish the image on the appropriate topic
                 if camera_type == 'base':
                     msg = CompressedImage()
-                    msg.format = 'jpeg'
-                    msg.data = np.array(cv2.imencode('.jpg', cv_image)[1]).tobytes()
+                    msg.format = 'png'
+                    msg.data = np.array(cv2.imencode('.png', cv_image)[1]).tobytes()
                     self.publisher.publish(msg)
                     self.get_logger().info('Base camera image published.')
                 elif camera_type == 'top':
@@ -75,7 +75,6 @@ class SegmentAnythingClient(Node):
 
     def listener_callback(self, msg):
         self.get_logger().info('Received segmented image!')
-        # Convert CompressedImage data to an image array
 
 def main(args=None):
     rclpy.init(args=args)

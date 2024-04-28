@@ -21,7 +21,7 @@ def show_anns(anns):
     img[:,:,3] = 0
     for ann in sorted_anns:
         m = ann['segmentation']
-        color_mask = np.concatenate([np.random.random(3), [0.35]])
+        color_mask = np.concatenate([np.random.random(3), [1]])
         img[m] = color_mask
     plt.savefig("/home/ubuntu/mask.png")
     return img 
@@ -58,6 +58,7 @@ class SegmentAnythingServer(Node):
         img = show_anns(masks_output)
         msg = CompressedImage()
         msg.format = "png"
+        img = np.clip(img * 255, 0, 255).astype(np.uint8)
         msg.data = cv2.imencode('.png', img)[1].tobytes()
         self.publisher_.publish(msg)
 
