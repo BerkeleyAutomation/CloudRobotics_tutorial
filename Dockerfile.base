@@ -1,0 +1,27 @@
+FROM osrf/ros:humble-desktop
+
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y --no-install-recommends install \
+    python3-pip nano ssh iproute2 \
+    gosu sudo wget ca-certificates openssl \
+    less bash-completion nano emacs-nox git curl unzip ros-humble-rmw-cyclonedds-cpp
+
+ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+# ENV CYCLONEDDS_URI=file:///opt/ros/humble/share/fogros2/configs/cyclonedds.ubuntu.2204.xml
+
+# Enable users in the sudo group to run without password.  This helps
+# once logged in as a user using the entry point.
+RUN echo "%sudo ALL=(ALL:ALL) NOPASSWD:ALL" > /etc/sudoers.d/90-sudo-group-nopasswd
+
+
+# Install AWS dep
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+RUN unzip -q awscliv2.zip && rm awscliv2.zip
+RUN ./aws/install
+
+# Install python deps
+RUN python3 -m pip install --no-cache-dir -U boto3 paramiko scp wgconfig requests 
+
+# setup entrypoint
+ENV ROS_DISTRO=${ROS_DISTRO}
+COPY ./ros_entrypoint.sh /
+RUN chmod +x /ros_entrypoint.sh

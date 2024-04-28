@@ -4,6 +4,9 @@ set -e
 
 if [[ -z "$USER" || -z "$HOME" || -z "$WORKDIR" ]] ; then
     echo "One or more required environment variables is not defined."
+    echo "USER: $USER"
+    echo "HOME: $HOME"
+    echo "WORKDIR: $WORKDIR"
     exit 1
 fi
 
