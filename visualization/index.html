@@ -1,92 +1,4 @@
-import fog_x
-import numpy as np 
-import cv2 
-import io 
-import subprocess
-import os 
 
-DATASETS = [
-    "demo_ds"
-]
-OUTPUT_FPS = 1
-
-# for dataset_name in DATASETS:
-dataset_name = "demo_ds"
-dataset = fog_x.dataset.Dataset(
-    name=dataset_name,
-    path="s3://cloud-robotics-workshop",
-)
-# e = dataset.new_episode()   
-# e.add_image("image", np.random.rand(100, 100, 3) * 255)
-
-viz_keys = [
-    "/image/base", 
-    "/image/top",
-]
-
-def convert_to_h264(input_file, output_file):
-    
-    # FFmpeg command to convert video to H.264
-    command = [
-        'ffmpeg',
-        '-i', input_file,    # Input file
-        '-loglevel', 'error', # Suppress the logs
-        '-vcodec', 'h264', # Specify the codec
-        output_file          # Output file
-    ]
-    subprocess.run(command)
-
-view_name_to_view_id = {
-    "segmented": "view-0",
-    "base": "view-1",
-    "top": "view-2",
-    "other": "view-3"
-}
- # JSON.parse('{"dataset_id": "dataset-1", "task_id": "task-2", "object_id": "object-10", "view_id": "view-3"}'),
-json_h5_str = ""
-episode_id = 0
-dataset_name = "demo_ds"
-for episode in dataset.read_by(
-    episode_info=dataset.get_episode_info()
-):
-    for key in viz_keys:
-        json_info = dict()
-        writer = None 
-        filename = f"{dataset_name}_{episode_id}_{key}.mp4".replace("/", "_")
-        json_info["poster"] = f"videos/{filename.replace('.mp4', '.jpg')}"
-        json_info["src"] = f"videos/{filename}"
-        json_info["info"] = episode_id
-        json_info["robot_id"] = dataset_name
-        json_info["view_id"] = view_name_to_view_id[key.split("/")[2]]
-        json_str = str(json_info).replace("'", '"')
-        json_h5_str += f"JSON.parse('{json_str}'),\n"
-        
-        temp_vid_output_path = f"/tmp/{filename}"
-        for frame in episode.collect()[key]:
-            image = np.load(io.BytesIO(frame))
-      
-            frame_size = (image.shape[1], image.shape[0])
-            if writer is None:
-                writer = cv2.VideoWriter(
-                    temp_vid_output_path,
-                    cv2.VideoWriter_fourcc(*"mp4v"),
-                    OUTPUT_FPS,
-                    frame_size
-                )
-            writer.write(image)
-        writer.release()
-        final_output_path = f"./videos/{filename}"
-        if not os.path.exists(temp_vid_output_path):
-            convert_to_h264(temp_vid_output_path, )
-        
-    episode_id += 1
-
-
-
-
-
-html_str = "\n".join([
-'''
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -479,9 +391,15 @@ html_str = "\n".join([
   <script>
     // Video metadata
     const videos = [
-''',
-json_h5_str, 
-'''
+
+JSON.parse('{"poster": "videos/demo_ds_0__image_base.jpg", "src": "videos/demo_ds_0__image_base.mp4", "info": 0, "robot_id": "demo_ds", "view_id": "view-1"}'),
+JSON.parse('{"poster": "videos/demo_ds_0__image_top.jpg", "src": "videos/demo_ds_0__image_top.mp4", "info": 0, "robot_id": "demo_ds", "view_id": "view-2"}'),
+JSON.parse('{"poster": "videos/demo_ds_1__image_base.jpg", "src": "videos/demo_ds_1__image_base.mp4", "info": 1, "robot_id": "demo_ds", "view_id": "view-1"}'),
+JSON.parse('{"poster": "videos/demo_ds_1__image_top.jpg", "src": "videos/demo_ds_1__image_top.mp4", "info": 1, "robot_id": "demo_ds", "view_id": "view-2"}'),
+JSON.parse('{"poster": "videos/demo_ds_2__image_base.jpg", "src": "videos/demo_ds_2__image_base.mp4", "info": 2, "robot_id": "demo_ds", "view_id": "view-1"}'),
+JSON.parse('{"poster": "videos/demo_ds_2__image_top.jpg", "src": "videos/demo_ds_2__image_top.mp4", "info": 2, "robot_id": "demo_ds", "view_id": "view-2"}'),
+
+
     ];
 
     const filters = [
@@ -702,7 +620,3 @@ json_h5_str,
   </script>
 </body>
 </html>
-'''])
-
-with open("index.html", "w") as f:
-    f.write(html_str)
