@@ -10,9 +10,9 @@ def generate_launch_description():
         disk_size=35
     )
 
-    sam_client_node = Node(
-        package="fogros2_tutorial", executable="sam_client", output="screen"
-    )
+    # sam_client_node = Node(
+    #     package="fogros2_tutorial", executable="sam_client", output="screen"
+    # )
 
     sam_server_node = fogros2.CloudNode(
         package="fogros2_tutorial",
@@ -22,6 +22,6 @@ def generate_launch_description():
     )
 
 
-    ld.add_action(sam_client_node)
+    # ld.add_action(sam_client_node)
     ld.add_action(sam_server_node)
     return ld
