@@ -8,7 +8,7 @@ cd ~
 git clone https://github.com/BerkeleyAutomation/CloudRobotics_tutorial.git
 ```
 
-If you do not have `git`, you can go to [https://github.com/BerkeleyAutomation/CloudRobotics_tutorial.git], then hit the green "code" button, and then "download zip".  Once you have the zip downloaded, extract the files so that `CloudRobotics_tutorial` is in your home directory.
+If you do not have `git`, you can go to https://github.com/BerkeleyAutomation/CloudRobotics_tutorial.git, then hit the green "code" button, and then "download zip".  Once you have the zip downloaded, extract the files so that `CloudRobotics_tutorial` is in your home directory.
 ```
 cd ~
 unzip ~/Downloads/CloudRobotics_tutorial-main.zip
@@ -23,7 +23,6 @@ From the checked out directory, run:
 MacOS
 ```
 cd ~/CloudRobotics_tutorial
-./docker-base-build.sh
 ./docker-build.sh
 ```
 
@@ -85,3 +84,38 @@ If you only get
 ---
 ```
 Then you are fine. 
+
+
+4. Source the overlay
+```
+. install/setup.bash
+```
+
+
+## PART 2: BASIC TALKER AND LISTENER EXAMPLES IN FOGROS2
+
+The `talker.py`  and `listener.py` files are provided in the `tutorial_workspace/fogros2_tutorial` folder in the repository. If we wanted, we could run both the talker and listener nodes individually and see the nodes communicating. Instead, we are going to run these nodes using a launch file.
+
+The `talker.local.launch.py` file is provided in the `tutorial_workspace/launch` in the repository.
+
+5.  Run local launch file
+```
+cd /fog_ws/src/CloudRobotics_tutorial/tutorial_workspace/launch
+ros2 launch talker.local.launch.py
+```
+Here you can see both the talker node publishing and the listener node subscribing. 
+
+6. Run cloud launch file (using FogROS2 and AWS)
+
+Now, we take the same local launch file and run the talker node on a provisioned AWS cloud instance. FogROS2 handles the provisioning and setup of the cloud instance for us. 
+
+The `talker.aws.launch.py` file is provided in the `tutorial_workspace/launch` in the repository.
+
+```
+cd /fog_ws/src/CloudRobotics_tutorial/tutorial_workspace/launch
+
+ros2 launch talker.aws.launch.py
+```
+This process will take a few minutes, and you'll see a lot of information scroll by as FogROS2 provisions the cloud instance and installs all required software and dependencies. Finally, you would see both the cloud node and the local node communicating. 
+
+CTRL-C kills the local instance (e.g., listener) the first time and then the cloud instance the second time. 
