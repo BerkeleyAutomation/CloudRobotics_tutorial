@@ -57,11 +57,11 @@
 
   <div class="container mt-3">
     <div class="row">
-      <h1 class="d-md-block d-none">Open-X Dataset Visualizer</h1>
-      <h3 class="d-block d-md-none">Open-X Dataset Visualizer</h3>
+      <h1 class="d-md-block d-none">Fog-RTX Dataset Visualizer</h1>
+      <h3 class="d-block d-md-none">Fog-RTX Dataset Visualizer</h3>
       
-      <p class="d-md-block d-none ml-3 mb-0 align-self-center">(Showing random subset of 1k trajectories from Open-X; website template from DROID Visualizer)</p>
-      <p class="d-block d-md-none small">(Showing random subset of 1k trajectories from Open-X; website template from DROID Visualizer)</p>
+      <p class="d-md-block d-none ml-3 mb-0 align-self-center">(Collected at ICRA 2024 Cloud Robotics-FogROS2 Tutorial; website template from DROID Visualizer)</p>
+      <p class="d-block d-md-none small">(Collected at ICRA 2024 Cloud Robotics-FogROS2 Tutorial; website template from DROID Visualizer)</p>
       
     </div>
 
@@ -85,21 +85,28 @@
           <div class="checkbox-container">
             <label for="view-1">
               <input type="checkbox" class="view-checkbox" id="view-1">
-              Wrist (<span id="view-1-count">0</span>)
+              Segmented (<span id="view-1-count">0</span>)
             </label>
           </div>
         
           <div class="checkbox-container">
             <label for="view-2">
               <input type="checkbox" class="view-checkbox" id="view-2">
-              Top (<span id="view-2-count">0</span>)
+              Base (<span id="view-2-count">0</span>)
+            </label>
+          </div>
+
+          <div class="checkbox-container">
+            <label for="view-3">
+              <input type="checkbox" class="view-checkbox" id="view-3">
+              Top (<span id="view-3-count">0</span>)
             </label>
           </div>
       
           <div class="checkbox-container">
-            <label for="view-3">
-              <input type="checkbox" class="view-checkbox" id="view-3">
-              Other (<span id="view-3-count">0</span>)
+            <label for="view-4">
+              <input type="checkbox" class="view-checkbox" id="view-4">
+              Other (<span id="view-4-count">0</span>)
             </label>
           </div>
         </div>
@@ -165,20 +172,15 @@
             </label>
           </div>
 
+
           <div class="checkbox-container">
-            <label for="dataset-1">
-              <input type="checkbox" class="dataset-checkbox" id="dataset-1">
-              fractal20220817_data (<span id="dataset-1-count">0</span>)
+            <label for="dataset-dataset-1">
+              <input type="checkbox" class="dataset-checkbox" id="dataset-dataset-1">
+              demo_ds (<span id="dataset-dataset-1-count">0</span>)
             </label>
           </div>
-        
-          <div class="checkbox-container">
-            <label for="dataset-52">
-              <input type="checkbox" class="dataset-checkbox" id="dataset-52">
-              other (<span id="dataset-52-count">0</span>)
-            </label>
-          </div>
-        </div>
+    
+
 
       </div>
 
@@ -392,12 +394,12 @@
     // Video metadata
     const videos = [
 
-JSON.parse('{"poster": "videos/demo_ds_0__image_base.jpg", "src": "videos/demo_ds_0__image_base.mp4", "info": 0, "robot_id": "demo_ds", "view_id": "view-1"}'),
-JSON.parse('{"poster": "videos/demo_ds_0__image_top.jpg", "src": "videos/demo_ds_0__image_top.mp4", "info": 0, "robot_id": "demo_ds", "view_id": "view-2"}'),
-JSON.parse('{"poster": "videos/demo_ds_1__image_base.jpg", "src": "videos/demo_ds_1__image_base.mp4", "info": 1, "robot_id": "demo_ds", "view_id": "view-1"}'),
-JSON.parse('{"poster": "videos/demo_ds_1__image_top.jpg", "src": "videos/demo_ds_1__image_top.mp4", "info": 1, "robot_id": "demo_ds", "view_id": "view-2"}'),
-JSON.parse('{"poster": "videos/demo_ds_2__image_base.jpg", "src": "videos/demo_ds_2__image_base.mp4", "info": 2, "robot_id": "demo_ds", "view_id": "view-1"}'),
-JSON.parse('{"poster": "videos/demo_ds_2__image_top.jpg", "src": "videos/demo_ds_2__image_top.mp4", "info": 2, "robot_id": "demo_ds", "view_id": "view-2"}'),
+JSON.parse('{"poster": "videos/demo_ds_0__image_base.jpg", "src": "videos/demo_ds_0__image_base.mp4", "info": "Episode: 0<br>Begin: Mon Apr 29 07:59:11 2024<br>End: Mon Apr 29 07:59:21 2024", "dataset_id": "dataset-1", "view_id": "view-2"}'),
+JSON.parse('{"poster": "videos/demo_ds_0__image_top.jpg", "src": "videos/demo_ds_0__image_top.mp4", "info": "Episode: 0<br>Begin: Mon Apr 29 07:59:11 2024<br>End: Mon Apr 29 07:59:21 2024", "dataset_id": "dataset-1", "view_id": "view-3"}'),
+JSON.parse('{"poster": "videos/demo_ds_1__image_base.jpg", "src": "videos/demo_ds_1__image_base.mp4", "info": "Episode: 1<br>Begin: Mon Apr 29 07:59:35 2024<br>End: Mon Apr 29 07:59:51 2024", "dataset_id": "dataset-1", "view_id": "view-2"}'),
+JSON.parse('{"poster": "videos/demo_ds_1__image_top.jpg", "src": "videos/demo_ds_1__image_top.mp4", "info": "Episode: 1<br>Begin: Mon Apr 29 07:59:35 2024<br>End: Mon Apr 29 07:59:51 2024", "dataset_id": "dataset-1", "view_id": "view-3"}'),
+JSON.parse('{"poster": "videos/demo_ds_2__image_base.jpg", "src": "videos/demo_ds_2__image_base.mp4", "info": "Episode: 2<br>Begin: Mon Apr 29 08:00:04 2024<br>End: Mon Apr 29 08:00:10 2024", "dataset_id": "dataset-1", "view_id": "view-2"}'),
+JSON.parse('{"poster": "videos/demo_ds_2__image_top.jpg", "src": "videos/demo_ds_2__image_top.mp4", "info": "Episode: 2<br>Begin: Mon Apr 29 08:00:04 2024<br>End: Mon Apr 29 08:00:10 2024", "dataset_id": "dataset-1", "view_id": "view-3"}'),
 
 
     ];

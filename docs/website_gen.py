@@ -4,25 +4,28 @@ import cv2
 import io 
 import subprocess
 import os 
+from datetime import datetime
 
 DATASETS = [
     "demo_ds"
 ]
+
+viz_keys = [
+    "/image/base", 
+    "/image/top",
+]
+
 OUTPUT_FPS = 1
 
 # for dataset_name in DATASETS:
 dataset_name = "demo_ds"
-dataset = fog_x.dataset.Dataset(
+dataset_df = fog_x.dataset.Dataset(
     name=dataset_name,
     path="s3://cloud-robotics-workshop",
 )
 # e = dataset.new_episode()   
 # e.add_image("image", np.random.rand(100, 100, 3) * 255)
 
-viz_keys = [
-    "/image/base", 
-    "/image/top",
-]
 
 def convert_to_h264(input_file, output_file):
     
@@ -37,26 +40,48 @@ def convert_to_h264(input_file, output_file):
     subprocess.run(command)
 
 view_name_to_view_id = {
-    "segmented": "view-0",
-    "base": "view-1",
-    "top": "view-2",
-    "other": "view-3"
+    "all": "view-0",
+    "segmented": "view-1",
+    "base": "view-2",
+    "top": "view-3",
+    "other": "view-4"
 }
+
+dataset_name_to_dataset_id = {}
+ds_counter = 1
+for dataset in DATASETS:
+    dataset_name_to_dataset_id[dataset] = "dataset-" + str(ds_counter)
+
+dataset_h5_str = ""
+for dataset in DATASETS:
+    dataset_h5_str += f'''
+          <div class="checkbox-container">
+            <label for="dataset-{dataset_name_to_dataset_id[dataset]}">
+              <input type="checkbox" class="dataset-checkbox" id="dataset-{dataset_name_to_dataset_id[dataset]}">
+              {dataset} (<span id="dataset-{dataset_name_to_dataset_id[dataset]}-count">0</span>)
+            </label>
+          </div>
+    '''
+
  # JSON.parse('{"dataset_id": "dataset-1", "task_id": "task-2", "object_id": "object-10", "view_id": "view-3"}'),
 json_h5_str = ""
 episode_id = 0
 dataset_name = "demo_ds"
-for episode in dataset.read_by(
-    episode_info=dataset.get_episode_info()
+for episode in dataset_df.read_by(
+    episode_info=dataset_df.get_episode_info()
 ):
+    episode_ts = episode.collect()["Timestamp"]
+    begin_datetime = datetime.fromtimestamp(episode_ts[0]/1000000000).strftime('%c')
+    end_datetime = datetime.fromtimestamp(episode_ts[-1]/1000000000).strftime('%c')
+
     for key in viz_keys:
         json_info = dict()
         writer = None 
         filename = f"{dataset_name}_{episode_id}_{key}.mp4".replace("/", "_")
         json_info["poster"] = f"videos/{filename.replace('.mp4', '.jpg')}"
         json_info["src"] = f"videos/{filename}"
-        json_info["info"] = episode_id
-        json_info["robot_id"] = dataset_name
+        json_info["info"] = "Episode: " + str(episode_id) + "<br>" + "Begin: " + begin_datetime + "<br>" + "End: " + end_datetime
+        json_info["dataset_id"] = dataset_name_to_dataset_id[dataset_name]
         json_info["view_id"] = view_name_to_view_id[key.split("/")[2]]
         json_str = str(json_info).replace("'", '"')
         json_h5_str += f"JSON.parse('{json_str}'),\n"
@@ -145,11 +170,11 @@ html_str = "\n".join([
 
   <div class="container mt-3">
     <div class="row">
-      <h1 class="d-md-block d-none">Open-X Dataset Visualizer</h1>
-      <h3 class="d-block d-md-none">Open-X Dataset Visualizer</h3>
+      <h1 class="d-md-block d-none">Fog-RTX Dataset Visualizer</h1>
+      <h3 class="d-block d-md-none">Fog-RTX Dataset Visualizer</h3>
       
-      <p class="d-md-block d-none ml-3 mb-0 align-self-center">(Showing random subset of 1k trajectories from Open-X; website template from DROID Visualizer)</p>
-      <p class="d-block d-md-none small">(Showing random subset of 1k trajectories from Open-X; website template from DROID Visualizer)</p>
+      <p class="d-md-block d-none ml-3 mb-0 align-self-center">(Collected at ICRA 2024 Cloud Robotics-FogROS2 Tutorial; website template from DROID Visualizer)</p>
+      <p class="d-block d-md-none small">(Collected at ICRA 2024 Cloud Robotics-FogROS2 Tutorial; website template from DROID Visualizer)</p>
       
     </div>
 
@@ -173,21 +198,28 @@ html_str = "\n".join([
           <div class="checkbox-container">
             <label for="view-1">
               <input type="checkbox" class="view-checkbox" id="view-1">
-              Wrist (<span id="view-1-count">0</span>)
+              Segmented (<span id="view-1-count">0</span>)
             </label>
           </div>
         
           <div class="checkbox-container">
             <label for="view-2">
               <input type="checkbox" class="view-checkbox" id="view-2">
-              Top (<span id="view-2-count">0</span>)
+              Base (<span id="view-2-count">0</span>)
+            </label>
+          </div>
+
+          <div class="checkbox-container">
+            <label for="view-3">
+              <input type="checkbox" class="view-checkbox" id="view-3">
+              Top (<span id="view-3-count">0</span>)
             </label>
           </div>
       
           <div class="checkbox-container">
-            <label for="view-3">
-              <input type="checkbox" class="view-checkbox" id="view-3">
-              Other (<span id="view-3-count">0</span>)
+            <label for="view-4">
+              <input type="checkbox" class="view-checkbox" id="view-4">
+              Other (<span id="view-4-count">0</span>)
             </label>
           </div>
         </div>
@@ -252,21 +284,11 @@ html_str = "\n".join([
               All (<span id="dataset-all-count">0</span>)
             </label>
           </div>
-
-          <div class="checkbox-container">
-            <label for="dataset-1">
-              <input type="checkbox" class="dataset-checkbox" id="dataset-1">
-              fractal20220817_data (<span id="dataset-1-count">0</span>)
-            </label>
-          </div>
-        
-          <div class="checkbox-container">
-            <label for="dataset-52">
-              <input type="checkbox" class="dataset-checkbox" id="dataset-52">
-              other (<span id="dataset-52-count">0</span>)
-            </label>
-          </div>
-        </div>
+'''
+,
+dataset_h5_str
+,
+'''
 
       </div>
 
