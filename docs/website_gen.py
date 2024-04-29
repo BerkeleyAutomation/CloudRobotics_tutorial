@@ -284,12 +284,14 @@ html_str = "\n".join([
               All (<span id="dataset-all-count">0</span>)
             </label>
           </div>
+
 '''
 ,
 dataset_h5_str
 ,
 '''
 
+        </div>
       </div>
 
       <div class="col" id="video-grid">
