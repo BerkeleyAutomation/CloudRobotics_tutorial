@@ -16,7 +16,7 @@ RUN mkdir -p ${ROS_WS}/src
 WORKDIR ${ROS_WS}/src
 RUN git clone https://github.com/cloudgripper/cloudgripper-ros.git
 RUN git clone https://github.com/BerkeleyAutomation/FogROS2.git
-COPY ./tutorial_workspace .
+COPY ./tutorial_workspace ./tutorial_workspace
 
 
 

@@ -45,7 +45,7 @@ done
 mkdir -p "$HOME"
 
 chown "$USER_ID:$GROUP_ID" "$HOME"
-
+chown -R "$USER_ID:$GROUP_ID" "/fog_ws"
 gosu "$USER_ID:$GROUP_ID" cp -rT /etc/skel "$HOME"
 
 # setup ros2 environment
