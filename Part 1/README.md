@@ -5,10 +5,10 @@ For this bootcamp, we recommend following the instructions below from your home 
 1. Clone Github Repository below your home directory
 ```
 cd ~
-git clone https://github.com/SimeonOA/CloudRobotics_tutorial.git
+git clone https://github.com/BerkeleyAutomation/CloudRobotics_tutorial.git
 ```
 
-If you do not have `git`, you can go to [https://github.com/BerkeleyAutomation/CloudRobotics_tutorial.git], then hit the green "code" button, and then "download zip".  Once you have the zip downloaded, extract the files so that `FogROS2_bootcamp` is in your home directory.
+If you do not have `git`, you can go to [https://github.com/BerkeleyAutomation/CloudRobotics_tutorial.git], then hit the green "code" button, and then "download zip".  Once you have the zip downloaded, extract the files so that `CloudRobotics_tutorial` is in your home directory.
 ```
 cd ~
 unzip ~/Downloads/CloudRobotics_tutorial-main.zip
@@ -68,8 +68,20 @@ Then it means you need to start Docker Desktop and wait until the Docker Deskop 
 
 3. Make a workspace and build it
 
-We have premade the workspace folder for you. First start the  container again. Then in the container, run
+We have premade the workspace folder for you. First start the  container again. 
+
+You should be in the _/fog_ws_ directory which is the workspace folder. 
+
+Run
 ```
-cd ~/CloudRobotics_tutorial/fog_ws
 colcon build
 ```
+
+If you only get
+```
+--- stderr: xxxxxxx                                                                
+/usr/lib/python3/dist-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+  warnings.warn(
+---
+```
+Then you are fine. 
