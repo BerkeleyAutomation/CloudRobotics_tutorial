@@ -2,8 +2,6 @@ from launch_ros.actions import Node
 
 import fogros2
 
-
-
 def generate_launch_description():
     """Talker example that launches the listener on AWS."""
     ld = fogros2.FogROSLaunchDescription()
@@ -22,6 +20,8 @@ def generate_launch_description():
         output="screen",
         machine=machine1,
     )
+
+
     ld.add_action(sam_client_node)
     ld.add_action(sam_server_node)
     return ld

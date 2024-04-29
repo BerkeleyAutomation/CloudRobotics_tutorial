@@ -14,6 +14,8 @@ WORKDIR ${ROS_WS}/src
 RUN git clone https://github.com/cloudgripper/cloudgripper-ros.git
 RUN git clone https://github.com/BerkeleyAutomation/FogROS2.git
 
+# Install fog_rt_x, our latest work on cloud-based data collection
+RUN pip install fog_x 
 
 ENTRYPOINT [ "/ros_entrypoint.sh" ]
 CMD ["bash"]

@@ -9,8 +9,13 @@ from cv_bridge import CvBridge
 
 class SegmentAnythingClient(Node):
     def __init__(self):
-        super().__init__('sam_subscriber')
-        self.publisher = self.create_publisher(CompressedImage, '/image', 2)
+        super().__init__('cloudgripper_sam')
+
+        self.declare_parameter('fps', 0.5)
+        self.fps = self.get_parameter('fps').value
+
+        self.publisher_base = self.create_publisher(CompressedImage, '/image/base', 2)
+        self.publisher_top = self.create_publisher(CompressedImage, '/image/top', 2)
         self.bridge = CvBridge()
         self.subscription = self.create_subscription(
             CompressedImage,
@@ -19,7 +24,7 @@ class SegmentAnythingClient(Node):
             2)
         
         self.subscription  # prevent unused variable warning
-        self.timer = self.create_timer(10.0, self.publish_image)  # Adjust the timer as needed
+        self.timer = self.create_timer(1/self.fps, self.publish_image)  # Adjust the timer as needed
 
         self.client = self.create_client(GetCameraImage, '/get_camera_image')
         while not self.client.wait_for_service(timeout_sec=1):
@@ -34,6 +39,7 @@ class SegmentAnythingClient(Node):
     def handle_response(self, future, camera_type):
         try:
             response = future.result()
+            self.get_logger().info(f'Received response from {camera_type} camera')
             if response.success:
                 # Convert the received ROS image message to an OpenCV image
                 cv_image = self.bridge.imgmsg_to_cv2(response.image, desired_encoding='bgr8')
@@ -44,13 +50,13 @@ class SegmentAnythingClient(Node):
                     msg = CompressedImage()
                     msg.format = 'png'
                     msg.data = np.array(cv2.imencode('.png', cv_image)[1]).tobytes()
-                    self.publisher.publish(msg)
+                    self.publisher_base.publish(msg)
                     self.get_logger().info('Base camera image published.')
                 elif camera_type == 'top':
                     msg = CompressedImage()
-                    msg.format = 'jpeg'
-                    msg.data = np.array(cv2.imencode('.jpg', cv_image)[1]).tobytes()
-                    self.publisher.publish(msg)
+                    msg.format = 'png'
+                    msg.data = np.array(cv2.imencode('.png', cv_image)[1]).tobytes()
+                    self.publisher_top.publish(msg)
                     self.get_logger().info('Top camera image published.')
             else:
                 self.get_logger().info(f'Failed to receive image from {camera_type} camera: ' + response.message)
@@ -58,7 +64,9 @@ class SegmentAnythingClient(Node):
             self.get_logger().error(f'Service call failed: {e}')
 
     def publish_image(self):
+        self.request_and_publish_image('top')
         self.request_and_publish_image('base')
+        
         # check if image exists 
         # if not os.path.exists('/home/ubuntu/image.jpg'):
         #     # download 

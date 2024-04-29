@@ -7,7 +7,7 @@ def generate_launch_description():
     return LaunchDescription([
         DeclareLaunchArgument(
             'robot_name', 
-            default_value='robot5',
+            default_value='robot4',
             description='Cloudgripper robot name'
         ),
         Node(
@@ -34,4 +34,11 @@ def generate_launch_description():
             name='keyboard_teleop_control',
             parameters=[{'robot_name': LaunchConfiguration('robot_name')}]
         ),
+        Node(
+            package="fogros2_tutorial", 
+            executable="fog_rtx_recorder", 
+        ), 
+        Node(
+            package="fogros2_tutorial", executable="sam_client", output="screen"
+        )
     ])

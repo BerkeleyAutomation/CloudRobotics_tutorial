@@ -3,7 +3,8 @@ FROM osrf/ros:humble-desktop
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y --no-install-recommends install \
     python3-pip nano ssh iproute2 \
     gosu sudo wget ca-certificates openssl wireguard \
-    less bash-completion nano emacs-nox git curl unzip ros-humble-rmw-cyclonedds-cpp
+    less bash-completion nano emacs-nox git curl unzip ros-humble-rmw-cyclonedds-cpp \
+    ros-humble-foxglove-bridge
 
 ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 # 
