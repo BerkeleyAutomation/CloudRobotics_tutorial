@@ -11,9 +11,9 @@ class CompressedImageSubscriber(Node):
     def __init__(self):
         super().__init__('compressed_image_subscriber')
 
-        self.declare_parameter('dataset_name', 'demo_ds')
-        self.dataset_name = self.get_parameter('dataset_name').value
-
+        self.dataset_name = self.declare_parameter('robot_name', 'PARAMETER NOT SET').get_parameter_value().string_value
+        if self.dataset_name == 'PARAMETER NOT SET':
+            raise ValueError('Please set the dataset_name parameter')
         self.declare_parameter("max_idle_time", 10)
         self.max_idle_time = self.get_parameter("max_idle_time").value
 
