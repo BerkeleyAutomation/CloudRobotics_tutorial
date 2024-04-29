@@ -167,8 +167,8 @@ ros2 launch sam.aws.launch.py
 In this terminal, we launch a server node on the cloud which subscribes to images of the physical robot, loads a SAM model (in this case, we are using the smallest one: "vit_b"), generates masks from the image and then publishes the generated masks. 
 We let it to run by **opening up a new terminal**, and proceed to **PART 4**. 
 
-## PART 4: CLOUDGRIPPER
-We integrate FogROS2 with [cloudgripper](https://cloudgripper.org/). To interact with the robot, you need to sign up for the robot and you will be assigned with a robot ID and a robot access API token. 
+## PART 4: CloudGripper
+We integrate FogROS2 with [CloudGripper](https://cloudgripper.org/). To interact with the robot, you need to sign up for the robot and you will be assigned with a robot ID and a robot access API token. 
 
 9. Start launch files
 
