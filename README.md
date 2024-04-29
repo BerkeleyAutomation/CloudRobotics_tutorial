@@ -9,6 +9,8 @@ Install Docker Desktop (if not already installed).  Select the appropriate link 
 * [Docker for Ubuntu](https://docs.docker.com/engine/install/ubuntu/)
 
 
+
+
 ## PART 1 : SETUP AND BASIC ROS
 
 For this bootcamp, we recommend following the instructions below from your home directory.  It should work from other places, but you'll have to do all the path conversions on your own.
@@ -81,7 +83,12 @@ docker: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is t
 ```
 Then it means you need to start Docker Desktop and wait until the Docker Deskop window shows that it has started.
 
+
 **Note: You do not have to run Steps 3 and 4 as we have already set them up. They are included below for completeness as they are required when using ROS2**
+
+Configure AWS. This requires credentials and will be provided to you during the tutorial. 
+
+
 
 3. Make a workspace and build it
 
