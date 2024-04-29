@@ -90,7 +90,7 @@ Then it means you need to start Docker Desktop and wait until the Docker Deskop 
 **Note: You do not have to run Steps 4 and 5 as we have already set them up. They are included below for completeness as they are required when using ROS2**
 
 
-4. Make a workspace and build it
+4. (Optional) Build ROS2 Workspace
 
 We have premade the workspace folder for you. First start the  container again. 
 
@@ -98,7 +98,7 @@ You should be in the _/fog_ws_ directory which is the workspace folder.
 
 Run
 ```
-colcon build
+colcon build --symlink-install
 ```
 
 If you only get
@@ -111,7 +111,7 @@ If you only get
 Then you are fine. 
 
 
-5. Source the overlay
+5. (Optional) Source the ROS2 Environment
 ```
 . install/setup.bash
 ```
@@ -130,7 +130,7 @@ cd ~/CloudRobotics_tutorial
 ./docker-run.sh
 ```
 
-7.  Run local launch file
+7.  (TODO: don't run this yet, or run it after step 8) Run local launch file
 ```
 cd /fog_ws/src/tutorial_workspace/launch/
 ros2 launch talker.local.launch.py
@@ -154,7 +154,7 @@ CTRL-C kills the local instance (e.g., listener) the first time and then the clo
 
 
 ## PART 3: SAM AND CLOUDGRIPPER
-Next we will show FoGROS2 used to run a cloud instance with Segment Anything Model (SAM). We will be using this with images received from CloudGripper.
+Next we will show FogROS2 used to run a cloud instance with Segment Anything Model (SAM). We will be using this with images received from CloudGripper.
 
 Like in **Part 2**, we have created  `sam_server.py`  and `sam_client.py` which you can look at in the `tutorial_workspace/fogros2_tutorial` folder. We will be running these nodes using two launch files: `sam.aws.launch.py`  and `cloudgripper.launch.py` which are provided in the `tutorial_workspace/launch` folder in the repository.
 
@@ -182,3 +182,6 @@ You can look in /fog_ws/src/tutorial_workspace/launch/saved_images for both the 
 
 
 ## PART 4: FOG-RTX DATA COLLECTION AND VISUALIZATION
+All the data is automatically collected through [fog-rt-x](https://github.com/BerkeleyAutomation/fog_x), a cloud based data collection and management. 
+[fog_rtx_recorder.py](./tutorial_workspace/fogros2_tutorial/fog_rtx_recorder.py) shows an example of collecting data from various topics and store them to the cloud. 
+The website will be statically generated at the end of the workshop at link: https://berkeleyautomation.github.io/CloudRobotics_tutorial/  
