@@ -6,6 +6,8 @@ import cv2
 import os
 from cloudgripper_msgs.srv import GetCameraImage  # Adjust this to your actual service definition
 from cv_bridge import CvBridge
+from io import BytesIO
+from PIL import Image
 
 class SegmentAnythingClient(Node):
     def __init__(self):
@@ -52,6 +54,11 @@ class SegmentAnythingClient(Node):
                     msg.data = np.array(cv2.imencode('.png', cv_image)[1]).tobytes()
                     self.publisher_base.publish(msg)
                     self.get_logger().info('Base camera image published.')
+                    # Save a copy of the image sent published
+                    image_stream = BytesIO(msg.data)
+                    image = Image.open(image_stream)
+                    os.makedirs('saved_images', exist_ok=True)
+                    image.save('saved_images/original_image.png', format='PNG')
                 elif camera_type == 'top':
                     msg = CompressedImage()
                     msg.format = 'png'
@@ -83,6 +90,11 @@ class SegmentAnythingClient(Node):
 
     def listener_callback(self, msg):
         self.get_logger().info('Received segmented image!')
+        # Save a copy of the mask image received
+        image_stream = BytesIO(msg.data)
+        image = Image.open(image_stream)
+        os.makedirs('saved_images', exist_ok=True)
+        image.save('saved_images/mask_image.png', format='PNG')
 
 def main(args=None):
     rclpy.init(args=args)

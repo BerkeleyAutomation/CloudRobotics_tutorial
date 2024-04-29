@@ -38,14 +38,15 @@ class SegmentAnythingServer(Node):
 
         self.subscription = self.create_subscription(
             CompressedImage,
-            '/image',
+            '/image/base',
             self.listener_callback,
             2)
 
         # Load the SAM model
         self.get_logger().info('Loading SAM model...')
-        model_path = "/home/ubuntu/models/sam_vit_h_4b8939.pth" 
-        self.sam = sam_model_registry["default"](checkpoint=model_path)
+        #model_path = "/home/ubuntu/models/sam_vit_h_4b8939.pth"
+        model_path = "/home/ubuntu/models/sam_vit_b_01ec64.pth" 
+        self.sam = sam_model_registry["vit_b"](checkpoint=model_path)
         self.sam.to(device="cuda")  # Ensure CUDA is available, otherwise specify 'cpu'
         self.sam_mask_generator = SamAutomaticMaskGenerator(self.sam)
         self.get_logger().info('SAM model loaded.')
