@@ -140,7 +140,7 @@ Next we will show FoGROS2 used to run a cloud instance with Segment Anything Mod
 
 Like in **Part 2**, we have created  `sam_server.py`  and `sam_client.py` which you can look at in the `tutorial_workspace/fogros2_tutorial` folder. We will be running these nodes using two launch files: `sam.aws.launch.py`  and `cloudgripper.launch.py` which are provided in the `tutorial_workspace/launch` folder in the repository.
 
-8. 
+8. Start launch files
 
 Open two terminals and start a container in each terminal.
 
