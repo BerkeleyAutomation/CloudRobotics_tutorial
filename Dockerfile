@@ -1,9 +1,11 @@
 FROM keplerc/cloud_robotics_tutorial:base
 ARG HOME 
 ARG USER 
+ARG CLOUDGRIPPER_API_KEY 
 
 ENV HOME=${HOME}
 ENV USER=${USER}
+ENV CLOUDGRIPPER_API_KEY=${CLOUDGRIPPER_API_KEY}
 # ENV WORKDIR="$(cd $(dirname "$0") ; pwd)"
 ENV CYCLONEDDS_URI=file:///fog_ws/src/FogROS2/fogros2/configs/cyclonedds.ubuntu.2204.xml
 

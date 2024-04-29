@@ -2,11 +2,12 @@
 
 set -e
 
-if [[ -z "$USER" || -z "$HOME" || -z "$WORKDIR" ]] ; then
+if [[ -z "$USER" || -z "$HOME" || -z "$WORKDIR" || -z "$CLOUDGRIPPER_API_KEY" ]] ; then
     echo "One or more required environment variables is not defined."
     echo "USER: $USER"
     echo "HOME: $HOME"
     echo "WORKDIR: $WORKDIR"
+    echo "CLOUDGIPPER_API_KEY: $CLOUDGRIPPER_API_KEY"
     exit 1
 fi
 

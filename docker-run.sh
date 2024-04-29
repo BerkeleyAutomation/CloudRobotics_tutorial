@@ -10,6 +10,6 @@ docker run -it --rm \
        --net=host \
        -v "$HOME/.aws:$HOME/.aws" \
        --cap-add=NET_ADMIN \
-       --mount src="$CURR_DIR",target="$ROS_WORKDIR/src/CloudRobotics_tutorial",type=bind \
+       --mount src="$CURR_DIR/tutorial_workspace",target="$ROS_WORKDIR/src/tutorial_workspace",type=bind \
        --workdir "$ROS_WORKDIR" \
        cloudrobotics_tutorial "$@"
