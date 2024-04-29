@@ -9,6 +9,9 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y --no-install-rec
 ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 # 
 
+# this upgrade pip to the latest version
+RUN python3 -m pip install pip -U 
+
 # Enable users in the sudo group to run without password.  This helps
 # once logged in as a user using the entry point.
 RUN echo "%sudo ALL=(ALL:ALL) NOPASSWD:ALL" > /etc/sudoers.d/90-sudo-group-nopasswd
