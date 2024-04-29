@@ -51,4 +51,5 @@ gosu "$USER_ID:$GROUP_ID" cp -rT /etc/skel "$HOME"
 # setup ros2 environment
 # echo 'source "/opt/ros/$ROS_DISTRO/setup.bash" --' >> "$HOME/.bashrc"
 echo "source \"/opt/ros/$ROS_DISTRO/setup.bash\"" >> "$HOME/.bashrc"
+echo "source \"/fog_ws/install/setup.bash\"" >> "$HOME/.bashrc"
 exec gosu "$USER_ID:$GROUP_ID" "$@"

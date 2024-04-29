@@ -39,6 +39,7 @@ def generate_launch_description():
             executable="fog_rtx_recorder", 
         ), 
         Node(
-            package="fogros2_tutorial", executable="sam_client", output="screen"
+            package="fogros2_tutorial", executable="sam_client",
+            parameters=[{'dataset_name': LaunchConfiguration('robot_name')}]
         )
     ])
