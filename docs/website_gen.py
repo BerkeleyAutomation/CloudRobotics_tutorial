@@ -6,9 +6,13 @@ import subprocess
 import os 
 from datetime import datetime
 
-DATASETS = [
-    "demo_ds"
-]
+# listing all the datasets in s3 bucket 
+import boto3 
+s3 = boto3.client('s3')
+response = s3.list_objects_v2(Bucket='cloud-robotics-workshop')
+DATASETS = [obj['Key'].split("/")[0] for obj in response['Contents']]
+DATASETS = [dataset.strip(".parquet") for dataset in DATASETS if dataset.endswith("parquet")]
+print(DATASETS)
 
 viz_keys = [
     "/image/base", 
@@ -63,48 +67,48 @@ for dataset in DATASETS:
           </div>
     '''
 
- # JSON.parse('{"dataset_id": "dataset-1", "task_id": "task-2", "object_id": "object-10", "view_id": "view-3"}'),
-json_h5_str = ""
-episode_id = 0
-dataset_name = "demo_ds"
-for episode in dataset_df.read_by(
-    episode_info=dataset_df.get_episode_info()
-):
-    episode_ts = episode.collect()["Timestamp"]
-    begin_datetime = datetime.fromtimestamp(episode_ts[0]/1000000000).strftime('%c')
-    end_datetime = datetime.fromtimestamp(episode_ts[-1]/1000000000).strftime('%c')
+    # JSON.parse('{"dataset_id": "dataset-1", "task_id": "task-2", "object_id": "object-10", "view_id": "view-3"}'),
+    json_h5_str = ""
+    episode_id = 0
+    dataset_name = dataset
+    for episode in dataset_df.read_by(
+        episode_info=dataset_df.get_episode_info()
+    ):
+        episode_ts = episode.collect()["Timestamp"]
+        begin_datetime = datetime.fromtimestamp(episode_ts[0]/1000000000).strftime('%c')
+        end_datetime = datetime.fromtimestamp(episode_ts[-1]/1000000000).strftime('%c')
 
-    for key in viz_keys:
-        json_info = dict()
-        writer = None 
-        filename = f"{dataset_name}_{episode_id}_{key}.mp4".replace("/", "_")
-        json_info["poster"] = f"videos/{filename.replace('.mp4', '.jpg')}"
-        json_info["src"] = f"videos/{filename}"
-        json_info["info"] = "Episode: " + str(episode_id) + "<br>" + "Begin: " + begin_datetime + "<br>" + "End: " + end_datetime
-        json_info["dataset_id"] = dataset_name_to_dataset_id[dataset_name]
-        json_info["view_id"] = view_name_to_view_id[key.split("/")[2]]
-        json_str = str(json_info).replace("'", '"')
-        json_h5_str += f"JSON.parse('{json_str}'),\n"
-        
-        temp_vid_output_path = f"/tmp/{filename}"
-        for frame in episode.collect()[key]:
-            image = np.load(io.BytesIO(frame))
-      
-            frame_size = (image.shape[1], image.shape[0])
-            if writer is None:
-                writer = cv2.VideoWriter(
-                    temp_vid_output_path,
-                    cv2.VideoWriter_fourcc(*"mp4v"),
-                    OUTPUT_FPS,
-                    frame_size
-                )
-            writer.write(image)
-        writer.release()
-        final_output_path = f"./videos/{filename}"
-        if not os.path.exists(temp_vid_output_path):
-            convert_to_h264(temp_vid_output_path, )
-        
-    episode_id += 1
+        for key in viz_keys:
+            json_info = dict()
+            writer = None 
+            filename = f"{dataset_name}_{episode_id}_{key}.mp4".replace("/", "_")
+            json_info["poster"] = f"videos/{filename.replace('.mp4', '.jpg')}"
+            json_info["src"] = f"videos/{filename}"
+            json_info["info"] = "Episode: " + str(episode_id) + "<br>" + "Begin: " + begin_datetime + "<br>" + "End: " + end_datetime
+            json_info["dataset_id"] = dataset_name_to_dataset_id[dataset_name]
+            json_info["view_id"] = view_name_to_view_id[key.split("/")[2]]
+            json_str = str(json_info).replace("'", '"')
+            json_h5_str += f"JSON.parse('{json_str}'),\n"
+            
+            temp_vid_output_path = f"/tmp/{filename}"
+            for frame in episode.collect()[key]:
+                image = np.load(io.BytesIO(frame))
+          
+                frame_size = (image.shape[1], image.shape[0])
+                if writer is None:
+                    writer = cv2.VideoWriter(
+                        temp_vid_output_path,
+                        cv2.VideoWriter_fourcc(*"mp4v"),
+                        OUTPUT_FPS,
+                        frame_size
+                    )
+                writer.write(image)
+            writer.release()
+            final_output_path = f"./videos/{filename}"
+            if not os.path.exists(final_output_path):
+                convert_to_h264(temp_vid_output_path, final_output_path)
+            
+        episode_id += 1
 
 
 
