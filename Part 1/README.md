@@ -68,8 +68,11 @@ Then it means you need to start Docker Desktop and wait until the Docker Deskop 
 
 3. Make a workspace and build it
 
-We have premade the workspace folder for you. First start the  container again. Then in the container, run
+We have premade the workspace folder for you. First start the  container again. 
+
+You should be in the _/fog_ws_ directory which is the workspace folder. 
+
+Run
 ```
-cd ~/CloudRobotics_tutorial/fog_ws
 colcon build
 ```
