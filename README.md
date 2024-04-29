@@ -175,7 +175,7 @@ We integrate FogROS2 with [CloudGripper](https://cloudgripper.org/). To interact
 In the new terminal, run 
 ```
 cd ~/CloudRobotics_tutorial
-./docker-build.sh
+./docker-run.sh
 ```
 and in the container, run
 ```
