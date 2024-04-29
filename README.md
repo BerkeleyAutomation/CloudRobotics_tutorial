@@ -8,9 +8,6 @@ Install Docker Desktop (if not already installed).  Select the appropriate link 
 * [Docker for Windows](https://docs.docker.com/desktop/install/windows-install/)
 * [Docker for Ubuntu](https://docs.docker.com/engine/install/ubuntu/)
 
-## Setup AWS account
-
-Before starting, you need to have an AWS account.  If you do not have one already, you can [create an AWS account](https://docs.aws.amazon.com/accounts/latest/reference/manage-acct-creating.html).  Note: this will require that you provide a credit card.  However, we will keep within the free-tier usage where possible.  If part of a formal session, you may be provided AWS credits as part of the session. If you want to see how to set up AWS credentials and install AWS CLI manually, see [here](https://github.com/BerkeleyAutomation/CloudRobotics_tutorial/blob/main/AWS.md). We will be handling this in the tutorial. 
 
 ## PART 1 : SETUP AND BASIC ROS
 
