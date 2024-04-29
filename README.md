@@ -10,74 +10,171 @@ Install Docker Desktop (if not already installed).  Select the appropriate link 
 
 ## Setup AWS account
 
-Before starting, you need to have an AWS account.  If you do not have one already, you can [create an AWS account](https://docs.aws.amazon.com/accounts/latest/reference/manage-acct-creating.html).  Note: this will require that you provide a credit card.  However, we will keep within the free-tier usage where possible.  If part of a formal session, you may be provided AWS credits as part of the session.
+Before starting, you need to have an AWS account.  If you do not have one already, you can [create an AWS account](https://docs.aws.amazon.com/accounts/latest/reference/manage-acct-creating.html).  Note: this will require that you provide a credit card.  However, we will keep within the free-tier usage where possible.  If part of a formal session, you may be provided AWS credits as part of the session. If you want to see how to set up AWS credentials and install AWS CLI manually, see [here](https://github.com/BerkeleyAutomation/CloudRobotics_tutorial/blob/main/AWS.md). We will be handling this in the tutorial. 
 
-## Create API credentials
+## PART 1 : SETUP AND BASIC ROS
 
-AWS provides [instructions on how to create an API key](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey).  Their best practices recommend using an [IAM account](https://aws.amazon.com/premiumsupport/knowledge-center/create-access-key/) first.  Feel free to follow the best practices.  However, for this bootcamp, if you create the API key for the session, then delete them at the end of the session, you should be okay.
+For this bootcamp, we recommend following the instructions below from your home directory.  It should work from other places, but you'll have to do all the path conversions on your own.
 
-From this process, you will need to obtain (1) an *Access key ID* (e.g., `AKIAIOSFODNN7EXAMPLE`), and (2) a *Secret Access Key* (e.g., `wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY`).  The two parts are similar to a username and password used for accessing a website, but in this case, are for accessing the interface that FogROS2 will use to talk to AWS.
-
-(Note: API = Application Program Interface)
-
-## Configure your AWS credentials
-
-For this part, there are two options.
-
-We highly recommend installing the AWS command line interface (CLI), as it can help facilitate interactions with AWS such as testing credentials.  Thus we recommend [installing the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html), and using Option 2 below.
-
-### Option 1: Manually create a credential file
-
-We need to create a file `~/.aws/credentials` that looks like this (but with your access key id and secret access key from the previous step)
+1. Clone Github Repository below your home directory
 ```
-[default]
-aws_access_key_id=AKIAIOSFODNN7EXAMPLE
-aws_secret_access_key=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+cd ~
+git clone https://github.com/BerkeleyAutomation/CloudRobotics_tutorial.git
 ```
 
-A quick way to do this is to open a terminal and run the following commands (but with your access key id and secret access key from the previous step):
+If you do not have `git`, you can go to https://github.com/BerkeleyAutomation/CloudRobotics_tutorial.git, then hit the green "code" button, and then "download zip".  Once you have the zip downloaded, extract the files so that `CloudRobotics_tutorial` is in your home directory.
 ```
-mkdir -p ~/.aws
-echo "[default]" > ~/.aws/credentials
-echo "aws_access_key_id=AKIAIOSFODNN7EXAMPLE" >> ~/.aws/credentials
-echo "aws_secret_access_key=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY" >> ~/.aws/credentials
-```
-(Quick note: the `>` means create and write to the file, and `>>` means append to the file.  It is important to use `>` for the first command and `>>` for the next two.)
-
-At this point, double check that the file looks correct, and has your access key id and secret access key from the previous step.
-
-You can also create a simple configuration that will provide default region for AWS command.  This part is not necessary for FogROS, but can be useful for other interactions with AWS.
-```
-echo "[default]" > ~/.aws/config
-echo "region=us-west-1" >> ~/.aws/config
+cd ~
+unzip ~/Downloads/CloudRobotics_tutorial-main.zip
+mv CloudRobotics_tutorial-main CloudRobotics_tutorial
 ```
 
-### Option 2: Use the AWS CLI
 
-If you have the AWS CLI (command line interface) installed, you can use it to set up the credentials that FogROS2 will use.  Having the CLI install is not required for FogROS2, however, if interested, here are the [instructions for installing the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html).
+2. Build docker image and start the docker container
 
-Run `aws configure`.  You will then be prompted for your keys.  This command does exactly what the prior instructions did--creates ~/.aws/credentials and ~/.aws/config
 
-```
-% aws configure
-AWS Access Key ID [None]: AKIAIOSFODNN7EXAMPLE
-AWS Secret Access Key [None]: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
-Default region name [None]: us-west-1
-Default output format [None]:
-```
-(leave output format blank)
-
-If all went well, you should then be able to test your credentials by running the following command [1](https://stackoverflow.com/a/42241040):
+First set the  CLOUDGRIPPER_API_KEY in your environment for authentication with the CloudGripper API. We will need this for a later part. 
 
 ```
-aws sts get-caller-identity
+export CLOUDGRIPPER_API_KEY="your_api_key_here"
 ```
 
-You should get output similar to the following:
+From the checked out directory, run:
+
+MacOS
 ```
-{
-    "Account": "123456789012", 
-    "UserId": "AR#####:#####", 
-    "Arn": "arn:aws:sts::123456789012:assumed-role/role-name/role-session-name"
-}
+cd ~/CloudRobotics_tutorial
+./docker-build.sh
 ```
+
+Windows
+```
+cd CloudRobotics_tutorial
+./docker-build.cmd
+```
+
+This process may take a few minutes, and you'll see a lot of information scroll by.  If there is no error message, move on to the next step.  If there was an error message, it can usually be resolved by waiting a minute and running `./docker-build.sh` again until it works--most common problems are related to internet connections, either on your computer/wifi or on the server from which docker is downloading software.
+
+
+To test if the docker build worked, try running:
+
+MacOS
+```
+cd ~/CloudRobotics_tutorial
+./docker-run.sh
+```
+
+Windows
+```
+docker-run.cmd
+```
+
+You should get the following output similar to the following:
+```
+$ ./docker-run.sh 
+Starting with USER: jeffi, UID: 501, GID: 20
+jeffi@docker-desktop:~/CloudRobotics_tutorial/fog_ws$ 
+```
+If you got that, congrats!  Everything is working.  At this point, type `CTRL-D` to exit.
+
+
+If you get:
+```
+docker: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?.
+```
+Then it means you need to start Docker Desktop and wait until the Docker Deskop window shows that it has started.
+
+**Note: You do not have to run Steps 3 and 4 as we have already set them up. They are included below for completeness as they are required when using ROS2**
+
+3. Make a workspace and build it
+
+We have premade the workspace folder for you. First start the  container again. 
+
+You should be in the _/fog_ws_ directory which is the workspace folder. 
+
+Run
+```
+colcon build
+```
+
+If you only get
+```
+--- stderr: xxxxxxx                                                                
+/usr/lib/python3/dist-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+  warnings.warn(
+---
+```
+Then you are fine. 
+
+
+4. Source the overlay
+```
+. install/setup.bash
+```
+
+
+## PART 2: BASIC TALKER AND LISTENER EXAMPLES IN FOGROS2
+
+The `talker.py`  and `listener.py` files are provided in the `tutorial_workspace/fogros2_tutorial` folder in the repository. If we wanted, we could run both the talker and listener nodes individually and see the nodes communicating. Instead, we are going to run these nodes using a launch file.
+
+The `talker.local.launch.py` file is provided in the `tutorial_workspace/launch` in the repository.
+
+5. Start the container again
+   
+```
+cd ~/CloudRobotics_tutorial
+./docker-run.sh
+```
+
+6.  Run local launch file
+```
+cd /fog_ws/src/tutorial_workspace/launch/
+ros2 launch talker.local.launch.py
+```
+Here you can see both the talker node publishing and the listener node subscribing. 
+
+7. Run cloud launch file (using FogROS2 and AWS)
+
+Now, we take the same local launch file and run the talker node on a provisioned AWS cloud instance. FogROS2 handles the provisioning and setup of the cloud instance for us. 
+
+The `talker.aws.launch.py` file is provided in the `tutorial_workspace/launch` folder in the repository.
+
+```
+cd /fog_ws/src/tutorial_workspace/launch
+
+ros2 launch talker.aws.launch.py
+```
+This process will take a few minutes, and you'll see a lot of information scroll by as FogROS2 provisions the cloud instance and installs all required software and dependencies. Finally, you would see both the cloud node and the local node communicating. 
+
+CTRL-C kills the local instance (e.g., listener) the first time and then the cloud instance the second time. 
+
+
+## PART 3: SAM AND CLOUDGRIPPER
+Next we will show FoGROS2 used to run a cloud instance with Segment Anything Model (SAM). We will be using this with images received from CloudGripper.
+
+Like in **Part 2**, we have created  `sam_server.py`  and `sam_client.py` which you can look at in the `tutorial_workspace/fogros2_tutorial` folder. We will be running these nodes using two launch files: `sam.aws.launch.py`  and `cloudgripper.launch.py` which are provided in the `tutorial_workspace/launch` folder in the repository.
+
+8. Start launch files
+
+Open two terminals and start a container in each terminal.
+
+In terminal 1, run:
+```
+cd /fog_ws/src/tutorial_workspace/launch
+
+ros2 launch sam.aws.launch.py
+```
+In this terminal, we launch a server node on the cloud which subscribes to images of the physical robot, loads a SAM model (in this case, we are using the smallest one: "vit_b"), generates masks from the image and then publishes the generated masks. 
+
+In terminal 2, run:
+```
+cd /fog_ws/src/tutorial_workspace/launch
+
+ros2 launch cloudgripper.launch.py
+```
+In this terminal, we launch a client node which receives images of the robot workspace from CloudGripper, publishes the image, and subscribes to generated masks from the cloud. We both the original image from cloudgripper and then generated masks.
+
+You can look in /fog_ws/src/tutorial_workspace/launch/saved_images for both the original image and the saved mask image. 
+
+
+## PART 4: FOG-RTX DATA COLLECTION AND VISUALIZATION
