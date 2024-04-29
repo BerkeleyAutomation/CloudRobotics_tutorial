@@ -18,6 +18,13 @@ mv CloudRobotics_tutorial-main CloudRobotics_tutorial
 
 2. Build docker image and start the docker container
 
+
+First set the  CLOUDGRIPPER_API_KEY in your environment for authentication with the CloudGripper API. We will need this for a later part. 
+
+```
+export CLOUDGRIPPER_API_KEY="your_api_key_here"
+```
+
 From the checked out directory, run:
 
 MacOS
@@ -29,7 +36,6 @@ cd ~/CloudRobotics_tutorial
 Windows
 ```
 cd CloudRobotics_tutorial
-./docker-base-build.cmd
 ./docker-build.cmd
 ```
 
@@ -64,6 +70,7 @@ docker: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is t
 ```
 Then it means you need to start Docker Desktop and wait until the Docker Deskop window shows that it has started.
 
+**Note: You do not have to run Steps 3 and 4 as we have already set them up. They are included below for completeness as they are required when using ROS2**
 
 3. Make a workspace and build it
 
@@ -98,24 +105,62 @@ The `talker.py`  and `listener.py` files are provided in the `tutorial_workspace
 
 The `talker.local.launch.py` file is provided in the `tutorial_workspace/launch` in the repository.
 
-5.  Run local launch file
+5. Start the container again
+   
 ```
-cd /fog_ws/src/CloudRobotics_tutorial/tutorial_workspace/launch
+cd ~/CloudRobotics_tutorial
+./docker-run.sh
+```
+
+6.  Run local launch file
+```
+cd /fog_ws/src/tutorial_workspace/launch/
 ros2 launch talker.local.launch.py
 ```
 Here you can see both the talker node publishing and the listener node subscribing. 
 
-6. Run cloud launch file (using FogROS2 and AWS)
+7. Run cloud launch file (using FogROS2 and AWS)
 
 Now, we take the same local launch file and run the talker node on a provisioned AWS cloud instance. FogROS2 handles the provisioning and setup of the cloud instance for us. 
 
-The `talker.aws.launch.py` file is provided in the `tutorial_workspace/launch` in the repository.
+The `talker.aws.launch.py` file is provided in the `tutorial_workspace/launch` folder in the repository.
 
 ```
-cd /fog_ws/src/CloudRobotics_tutorial/tutorial_workspace/launch
+cd /fog_ws/src/tutorial_workspace/launch
 
 ros2 launch talker.aws.launch.py
 ```
 This process will take a few minutes, and you'll see a lot of information scroll by as FogROS2 provisions the cloud instance and installs all required software and dependencies. Finally, you would see both the cloud node and the local node communicating. 
 
 CTRL-C kills the local instance (e.g., listener) the first time and then the cloud instance the second time. 
+
+
+## PART 3: SAM AND CLOUDGRIPPER
+Next we will show FoGROS2 used to run a cloud instance with Segment Anything Model (SAM). We will be using this with images received from CloudGripper.
+
+Like in **Part 2**, we have created  `sam_server.py`  and `sam_client.py` which you can look at in the `tutorial_workspace/fogros2_tutorial` folder. We will be running these nodes using two launch files: `sam.aws.launch.py`  and `cloudgripper.launch.py` which are provided in the `tutorial_workspace/launch` folder in the repository.
+
+8. 
+
+Open two terminals and start a container in each terminal.
+
+In terminal 1, run:
+```
+cd /fog_ws/src/tutorial_workspace/launch
+
+ros2 launch sam.aws.launch.py
+```
+In this terminal, we launch a server node on the cloud which subscribes to images of the physical robot, loads a SAM model (in this case, we are using the smallest one: "vit_b"), generates masks from the image and then publishes the generated masks. 
+
+In terminal 2, run:
+```
+cd /fog_ws/src/tutorial_workspace/launch
+
+ros2 launch cloudgripper.launch.py
+```
+In this terminal, we launch a client node which receives images of the robot workspace from CloudGripper, publishes the image, and subscribes to generated masks from the cloud. We both the original image from cloudgripper and then generated masks.
+
+You can look in /fog_ws/src/tutorial_workspace/launch/saved_images for both the original image and the saved mask image. 
+
+
+## PART 4: FOG-RTX DATA COLLECTION AND VISUALIZATION
