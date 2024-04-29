@@ -76,3 +76,12 @@ Run
 ```
 colcon build
 ```
+
+If you only get
+```
+--- stderr: fogros2                                                                
+/usr/lib/python3/dist-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+  warnings.warn(
+---
+```
+Then you are fine. 
