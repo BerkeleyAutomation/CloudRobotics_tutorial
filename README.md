@@ -84,13 +84,13 @@ docker: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is t
 Then it means you need to start Docker Desktop and wait until the Docker Deskop window shows that it has started.
 
 
-**Note: You do not have to run Steps 3 and 4 as we have already set them up. They are included below for completeness as they are required when using ROS2**
-
-Configure AWS. This requires credentials and will be provided to you during the tutorial. 
+3. Configure AWS. This requires credentials and will be provided to you during the tutorial. 
 
 
+**Note: You do not have to run Steps 4 and 5 as we have already set them up. They are included below for completeness as they are required when using ROS2**
 
-3. Make a workspace and build it
+
+4. Make a workspace and build it
 
 We have premade the workspace folder for you. First start the  container again. 
 
@@ -111,7 +111,7 @@ If you only get
 Then you are fine. 
 
 
-4. Source the overlay
+5. Source the overlay
 ```
 . install/setup.bash
 ```
@@ -123,21 +123,21 @@ The `talker.py`  and `listener.py` files are provided in the `tutorial_workspace
 
 The `talker.local.launch.py` file is provided in the `tutorial_workspace/launch` in the repository.
 
-5. Start the container again
+6. Start the container again
    
 ```
 cd ~/CloudRobotics_tutorial
 ./docker-run.sh
 ```
 
-6.  Run local launch file
+7.  Run local launch file
 ```
 cd /fog_ws/src/tutorial_workspace/launch/
 ros2 launch talker.local.launch.py
 ```
 Here you can see both the talker node publishing and the listener node subscribing. 
 
-7. Run cloud launch file (using FogROS2 and AWS)
+8. Run cloud launch file (using FogROS2 and AWS)
 
 Now, we take the same local launch file and run the talker node on a provisioned AWS cloud instance. FogROS2 handles the provisioning and setup of the cloud instance for us. 
 
@@ -158,7 +158,7 @@ Next we will show FoGROS2 used to run a cloud instance with Segment Anything Mod
 
 Like in **Part 2**, we have created  `sam_server.py`  and `sam_client.py` which you can look at in the `tutorial_workspace/fogros2_tutorial` folder. We will be running these nodes using two launch files: `sam.aws.launch.py`  and `cloudgripper.launch.py` which are provided in the `tutorial_workspace/launch` folder in the repository.
 
-8. Start launch files
+9. Start launch files
 
 Open two terminals and start a container in each terminal.
 
