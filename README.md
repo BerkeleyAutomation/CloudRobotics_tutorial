@@ -153,35 +153,83 @@ This process will take a few minutes, and you'll see a lot of information scroll
 CTRL-C kills the local instance (e.g., listener) the first time and then the cloud instance the second time. 
 
 
-## PART 3: SAM AND CLOUDGRIPPER
+## PART 3: SAM with FogROS2
 Next we will show FogROS2 used to run a cloud instance with Segment Anything Model (SAM). We will be using this with images received from CloudGripper.
 
 Like in **Part 2**, we have created  `sam_server.py`  and `sam_client.py` which you can look at in the `tutorial_workspace/fogros2_tutorial` folder. We will be running these nodes using two launch files: `sam.aws.launch.py`  and `cloudgripper.launch.py` which are provided in the `tutorial_workspace/launch` folder in the repository.
 
-9. Start launch files
-
-Open two terminals and start a container in each terminal.
-
-In terminal 1, run:
+run:
 ```
 cd /fog_ws/src/tutorial_workspace/launch
 
 ros2 launch sam.aws.launch.py
 ```
 In this terminal, we launch a server node on the cloud which subscribes to images of the physical robot, loads a SAM model (in this case, we are using the smallest one: "vit_b"), generates masks from the image and then publishes the generated masks. 
+We let it to run by **opening up a new terminal**, and proceed to **PART 4**. 
 
-In terminal 2, run:
+## PART 4: CLOUDGRIPPER
+We integrate FogROS2 with [cloudgripper](https://cloudgripper.org/). To interact with the robot, you need to sign up for the robot and you will be assigned with a robot ID and a robot access API token. 
+
+9. Start launch files
+
+In the new terminal, run 
+```
+cd ~/CloudRobotics_tutorial
+./docker-build.sh
+```
+and in the container, run
 ```
 cd /fog_ws/src/tutorial_workspace/launch
-
-ros2 launch cloudgripper.launch.py
+ros2 launch cloudgripper.launch.py -- robot_name:=robotX
 ```
-In this terminal, we launch a client node which receives images of the robot workspace from CloudGripper, publishes the image, and subscribes to generated masks from the cloud. We both the original image from cloudgripper and then generated masks.
+where `robotX` is the robot ID that you are assigned. In this terminal, we launch a client node which receives images of the robot workspace from CloudGripper, publishes the image, and subscribes to generated masks from the cloud. We both the original image from cloudgripper and then generated masks.
 
-You can look in /fog_ws/src/tutorial_workspace/launch/saved_images for both the original image and the saved mask image. 
+
+
+#### Keyboard Control
+In the new terminal, run 
+```
+cd ~/CloudRobotics_tutorial
+./docker-build.sh
+```
+and in the container run 
+```
+ros2 run teleop_twist_keyboard teleop_twist_keyboard
+```
+This will enable real-time keyboard control for the Cloudgripper.
+- **Key Bindings**:
+  - **Movement**:
+    - `i`: Move forward
+    - `k`: Move backward
+    - `j`: Move left
+    - `l`: Move right
+  - **Z-Axis Control**:
+    - `t`: Move up
+    - `b`: Move down
+  - **Rotation Control**:
+    - `u`: Rotate left
+    - `i`: Rotate right
+  - **Gripper Control**:
+    - `m`: Close gripper
+    - `,`: Open gripper
+
+
+
+#### Viewing SAM's results 
+Once SAM and CloudGrippper and both up and running, you can look in ~/CloudRobotics_tutorial/tutorial_workspace/launch/saved_images for both the original image and the saved mask image. 
+
+
+
+
+
 
 
 ## PART 4: FOG-RTX DATA COLLECTION AND VISUALIZATION
 All the data is automatically collected through [fog-rt-x](https://github.com/BerkeleyAutomation/fog_x), a cloud based data collection and management. 
 [fog_rtx_recorder.py](./tutorial_workspace/fogros2_tutorial/fog_rtx_recorder.py) shows an example of collecting data from various topics and store them to the cloud. 
 The website will be statically generated at the end of the workshop at link: https://berkeleyautomation.github.io/CloudRobotics_tutorial/  
+
+## Known issues 
+
+1. Currently this does not work for Mac M chip users. If unfortunately you only have Mac M chip laptop available, contact us
+2. We haven't tested Windows 
