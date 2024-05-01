@@ -1,61 +1,10 @@
 # Cloud and Fog Robotics: A Hands-on Tutorial with ROS2 and FogROS2 (ICRA 2024)
 
-## Before tutorial instructions
+At the workshop, we will provide pre-provisioned SSH-able machines for convenience. However, to get the most out of the tutorial, we recommend to install with your local computer. Please refer to [Preparation Doc](./Tutorial_Prep.md) for more information. All of our work is done in the docker, so it will not leave a trace to your computer. 
 
-Install Docker Desktop (if not already installed).  Select the appropriate link below and follow the instructions.  For Mac and Windows, this amounts to following the download link, and installing the software.
+## PART 0: Verify Running Environment
 
-* [Docker for Mac OS](https://docs.docker.com/desktop/install/mac-install/)
-* [Docker for Windows](https://docs.docker.com/desktop/install/windows-install/)
-* [Docker for Ubuntu](https://docs.docker.com/engine/install/ubuntu/)
-
-
-
-
-## PART 1 : SETUP AND BASIC ROS
-
-For this bootcamp, we recommend following the instructions below from your home directory.  It should work from other places, but you'll have to do all the path conversions on your own.
-
-1. Clone Github Repository below your home directory
-```
-cd ~
-git clone https://github.com/BerkeleyAutomation/CloudRobotics_tutorial.git
-```
-
-If you do not have `git`, you can go to https://github.com/BerkeleyAutomation/CloudRobotics_tutorial.git, then hit the green "code" button, and then "download zip".  Once you have the zip downloaded, extract the files so that `CloudRobotics_tutorial` is in your home directory.
-```
-cd ~
-unzip ~/Downloads/CloudRobotics_tutorial-main.zip
-mv CloudRobotics_tutorial-main CloudRobotics_tutorial
-```
-
-
-2. Build docker image and start the docker container
-
-
-First set the  CLOUDGRIPPER_API_KEY in your environment for authentication with the CloudGripper API. We will need this for a later part. 
-
-```
-export CLOUDGRIPPER_API_KEY="your_api_key_here"
-```
-
-From the checked out directory, run:
-
-MacOS
-```
-cd ~/CloudRobotics_tutorial
-./docker-build.sh
-```
-
-Windows
-```
-cd CloudRobotics_tutorial
-./docker-build.cmd
-```
-
-This process may take a few minutes, and you'll see a lot of information scroll by.  If there is no error message, move on to the next step.  If there was an error message, it can usually be resolved by waiting a minute and running `./docker-build.sh` again until it works--most common problems are related to internet connections, either on your computer/wifi or on the server from which docker is downloading software.
-
-
-To test if the docker build worked, try running:
+If you successfully followed the [Preparation Doc](./Tutorial_Prep.md) or get a SSH machine from us, you may run the following command to verify your running environment: 
 
 MacOS
 ```
@@ -77,47 +26,7 @@ jeffi@docker-desktop:~/CloudRobotics_tutorial/fog_ws$
 If you got that, congrats!  Everything is working.  At this point, type `CTRL-D` to exit.
 
 
-If you get:
-```
-docker: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?.
-```
-Then it means you need to start Docker Desktop and wait until the Docker Deskop window shows that it has started.
-
-
-3. Configure AWS. This requires credentials and will be provided to you during the tutorial. 
-
-
-**Note: You do not have to run Steps 4 and 5 as we have already set them up. They are included below for completeness as they are required when using ROS2**
-
-
-4. (Optional) Build ROS2 Workspace
-
-We have premade the workspace folder for you. First start the  container again. 
-
-You should be in the _/fog_ws_ directory which is the workspace folder. 
-
-Run
-```
-colcon build --symlink-install
-```
-
-If you only get
-```
---- stderr: xxxxxxx                                                                
-/usr/lib/python3/dist-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
-  warnings.warn(
----
-```
-Then you are fine. 
-
-
-5. (Optional) Source the ROS2 Environment
-```
-. install/setup.bash
-```
-
-
-## PART 2: BASIC TALKER AND LISTENER EXAMPLES IN FOGROS2
+## PART 1: Talker and Listener with FogROS2  (15 Min)
 
 The `talker.py`  and `listener.py` files are provided in the `tutorial_workspace/fogros2_tutorial` folder in the repository. If we wanted, we could run both the talker and listener nodes individually and see the nodes communicating. Instead, we are going to run these nodes using a launch file.
 
@@ -130,7 +39,7 @@ cd ~/CloudRobotics_tutorial
 ./docker-run.sh
 ```
 
-7.  (TODO: don't run this yet, or run it after step 8) Run local launch file
+7.  Run local launch file
 ```
 cd /fog_ws/src/tutorial_workspace/launch/
 ros2 launch talker.local.launch.py
@@ -153,21 +62,19 @@ This process will take a few minutes, and you'll see a lot of information scroll
 CTRL-C kills the local instance (e.g., listener) the first time and then the cloud instance the second time. 
 
 
-## PART 3: SAM with FogROS2
-Next we will show FogROS2 used to run a cloud instance with Segment Anything Model (SAM). We will be using this with images received from CloudGripper.
+## PART 2: SAM with FogROS2 (5 Min)
+Next we will show FogROS2 used to run a cloud instance with [Segment Anything Model](https://github.com/facebookresearch/segment-anything) (SAM).
 
-Like in **Part 2**, we have created  `sam_server.py`  and `sam_client.py` which you can look at in the `tutorial_workspace/fogros2_tutorial` folder. We will be running these nodes using two launch files: `sam.aws.launch.py`  and `cloudgripper.launch.py` which are provided in the `tutorial_workspace/launch` folder in the repository.
+Like in **Part 1**, we have created  `sam_server.py`  and `sam_client.py` which you can look at in the `tutorial_workspace/fogros2_tutorial` folder. We will be running these nodes using two launch files: `sam.aws.launch.py`, which are provided in the `tutorial_workspace/launch` folder in the repository.
 
 run:
 ```
-cd /fog_ws/src/tutorial_workspace/launch
-
-ros2 launch sam.aws.launch.py
+ros2 launch fogros2_tutorial sam.aws.launch.py
 ```
 In this terminal, we launch a server node on the cloud which subscribes to images of the physical robot, loads a SAM model (in this case, we are using the smallest one: "vit_b"), generates masks from the image and then publishes the generated masks. 
-We let it to run by **opening up a new terminal**, and proceed to **PART 4**. 
+We let it to run by **opening up a new terminal**, and proceed to **PART 3**. 
 
-## PART 4: CloudGripper
+## PART 3: CloudGripper (10 Min)
 We integrate FogROS2 with [CloudGripper](https://cloudgripper.org/). To interact with the robot, you need to sign up for the robot and you will be assigned with a robot ID and a robot access API token. 
 
 9. Start launch files
@@ -219,17 +126,8 @@ This will enable real-time keyboard control for the Cloudgripper.
 Once SAM and CloudGrippper and both up and running, you can look in ~/CloudRobotics_tutorial/tutorial_workspace/launch/saved_images for both the original image and the saved mask image. 
 
 
-
-
-
-
-
-## PART 4: FOG-RTX DATA COLLECTION AND VISUALIZATION
+## PART 4: FOG-RTX Data Collection and Management (5 Min)
 All the data is automatically collected through [fog-rt-x](https://github.com/BerkeleyAutomation/fog_x), a cloud based data collection and management. 
 [fog_rtx_recorder.py](./tutorial_workspace/fogros2_tutorial/fog_rtx_recorder.py) shows an example of collecting data from various topics and store them to the cloud. 
 The website will be statically generated at the end of the workshop at link: https://berkeleyautomation.github.io/CloudRobotics_tutorial/  
 
-## Known issues 
-
-1. Currently this does not work for Mac M chip users. If unfortunately you only have Mac M chip laptop available, contact us
-2. We haven't tested Windows 
