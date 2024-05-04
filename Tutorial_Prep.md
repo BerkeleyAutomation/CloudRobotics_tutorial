@@ -30,15 +30,21 @@ unzip ~/Downloads/CloudRobotics_tutorial-main.zip
 mv CloudRobotics_tutorial-main CloudRobotics_tutorial
 ```
 
+### Step 2: Configure AWS
+In the workshop, we will use AWS cloud machines, but FogROS2 and CloudGripper are not fixed by AWS. We will provide AWS credentials at the tutorial. If you wish to register your own account, please refer to [AWS.md](./AWS.md).
 
-### Step 2: Build docker image and start the docker container
 
+### Step 3: Build docker image and start the docker container
 
-First set the  CLOUDGRIPPER_API_KEY in your environment for authentication with the CloudGripper API. We will need this for a later part. 
+First set the  credentials in your environment for authentication with the CloudGripper API and AWS. 
 
 ```
 export CLOUDGRIPPER_API_KEY="your_api_key_here"
+export AWS_ACCESS_KEY_ID="your_aws_credential_id_here"
+export AWS_SECRET_ACCESS_KEY="your_aws_credential_access_key_here"
 ```
+
+For those who don't get access to some of the variabes yet (which we will distribute at the workshop), you can fill in placeholder values. 
 
 From the checked out directory, run:
 
@@ -85,6 +91,3 @@ docker: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is t
 ```
 Then it means you need to start Docker Desktop and wait until the Docker Deskop window shows that it has started.
 
-
-### Step 3: Configure AWS
-In the workshop, we will use AWS cloud machines, but FogROS2 and CloudGripper are not limited by AWS. We will provide AWS credentials at the tutorial. If you wish to register your own account, please refer to [AWS.md](./AWS.md).

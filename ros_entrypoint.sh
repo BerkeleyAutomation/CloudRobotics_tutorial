@@ -2,12 +2,14 @@
 
 set -e
 
-if [[ -z "$USER" || -z "$HOME" || -z "$WORKDIR" || -z "$CLOUDGRIPPER_API_KEY" ]] ; then
+if [[ -z "$USER" || -z "$HOME" || -z "$WORKDIR" || -z "$CLOUDGRIPPER_API_KEY" || -z "$AWS_ACCESS_KEY_ID" || -z "$AWS_SECRET_ACCESS_KEY" ]] ; then
     echo "One or more required environment variables is not defined."
     echo "USER: $USER"
     echo "HOME: $HOME"
     echo "WORKDIR: $WORKDIR"
     echo "CLOUDGIPPER_API_KEY: $CLOUDGRIPPER_API_KEY"
+    echo "AWS_ACCESS_KEY_ID is set"
+    echo "AWS_SECRET_ACCESS_KEY is set"
     exit 1
 fi
 
