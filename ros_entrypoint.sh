@@ -8,8 +8,8 @@ if [[ -z "$USER" || -z "$HOME" || -z "$WORKDIR" || -z "$CLOUDGRIPPER_API_KEY" ||
     echo "HOME: $HOME"
     echo "WORKDIR: $WORKDIR"
     echo "CLOUDGIPPER_API_KEY: $CLOUDGRIPPER_API_KEY"
-    echo "AWS_ACCESS_KEY_ID is set"
-    echo "AWS_SECRET_ACCESS_KEY is set"
+    echo "AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID"
+    echo "AWS_SECRET_ACCESS_KEY is not shown for security reasons; make sure it's set."
     exit 1
 fi
 

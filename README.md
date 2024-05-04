@@ -41,8 +41,7 @@ cd ~/CloudRobotics_tutorial
 
 7.  Run local launch file
 ```
-cd /fog_ws/src/tutorial_workspace/launch/
-ros2 launch talker.local.launch.py
+ros2 launch fogros2_tutorial talker.local.launch.py
 ```
 Here you can see both the talker node publishing and the listener node subscribing. 
 
@@ -53,9 +52,7 @@ Now, we take the same local launch file and run the talker node on a provisioned
 The `talker.aws.launch.py` file is provided in the `tutorial_workspace/launch` folder in the repository.
 
 ```
-cd /fog_ws/src/tutorial_workspace/launch
-
-ros2 launch talker.aws.launch.py
+ros2 launch fogros2_tutorial talker.aws.launch.py
 ```
 This process will take a few minutes, and you'll see a lot of information scroll by as FogROS2 provisions the cloud instance and installs all required software and dependencies. Finally, you would see both the cloud node and the local node communicating. 
 

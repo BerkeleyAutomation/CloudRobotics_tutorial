@@ -20,7 +20,7 @@ ENV ROS_WS=/fog_ws
 RUN mkdir -p ${ROS_WS}/src
 WORKDIR ${ROS_WS}/src
 RUN git clone https://github.com/cloudgripper/cloudgripper-ros.git
-RUN git clone https://github.com/KeplerC/FogROS2.git
+RUN git clone https://github.com/KeplerC/FogROS2.git 
 COPY ./tutorial_workspace ./tutorial_workspace
 
 
