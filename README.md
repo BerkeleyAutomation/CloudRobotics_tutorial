@@ -94,7 +94,7 @@ where `robotX` is the robot ID that you are assigned. In this terminal, we launc
 In the new terminal, run 
 ```
 cd ~/CloudRobotics_tutorial
-./docker-build.sh
+./docker-run.sh
 ```
 and in the container run 
 ```
