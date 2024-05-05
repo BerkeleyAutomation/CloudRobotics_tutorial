@@ -72,7 +72,7 @@ In this terminal, we launch a server node on the cloud which subscribes to image
 We let it to run by **opening up a new terminal**, and proceed to **PART 3**. 
 
 ## PART 3: CloudGripper (10 Min)
-We integrate FogROS2 with [CloudGripper](https://cloudgripper.org/). To interact with the robot, you need to sign up for the robot and you will be assigned with a robot ID and a robot access API token. 
+We integrate FogROS2 with [CloudGripper](https://cloudgripper.org/). To interact with the robot, this part assumes that you have already signed up for the robot. You need the assigned robot ID and a robot access API token. 
 
 9. Start launch files
 
