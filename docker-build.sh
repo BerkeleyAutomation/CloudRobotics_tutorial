@@ -2,7 +2,7 @@
 
 cd "$(dirname "$0")"
 
-docker build --no-cache -t cloudrobotics_tutorial . \
+docker build -t cloudrobotics_tutorial . \
     --network=host --build-arg HOME="$HOME"   \
     --build-arg USER="$USER"   \
     --build-arg CLOUDGRIPPER_API_KEY="$CLOUDGRIPPER_API_KEY" \

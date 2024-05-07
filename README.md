@@ -81,7 +81,14 @@ In the new terminal, run
 cd ~/CloudRobotics_tutorial
 ./docker-run.sh
 ```
-and in the container, run
+
+9.1 (Skip if you only want to run CloudGripper without SAM) Run 
+```
+export CYCLONEDDS_URI=file:///fog_ws/src/FogROS2/fogros2/configs/cyclonedds.ubuntu.2204.xml
+```
+This helps all the messages from CloudGripper to be propagated to FogROS2-enabled Cloud.
+
+9.2 In the container, run
 ```
 cd /fog_ws/src/tutorial_workspace/launch
 ros2 launch cloudgripper.launch.py -- robot_name:=robotX
