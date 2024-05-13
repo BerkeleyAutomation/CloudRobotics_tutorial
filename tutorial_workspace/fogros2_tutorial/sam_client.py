@@ -28,6 +28,8 @@ class SegmentAnythingClient(Node):
         self.subscription  # prevent unused variable warning
         self.timer = self.create_timer(1/self.fps, self.publish_image)  # Adjust the timer as needed
 
+        self.counter = 0
+
         self.client = self.create_client(GetCameraImage, '/get_camera_image')
         while not self.client.wait_for_service(timeout_sec=1):
             self.get_logger().info('Service not available, waiting again...')
@@ -58,7 +60,9 @@ class SegmentAnythingClient(Node):
                     image_stream = BytesIO(msg.data)
                     image = Image.open(image_stream)
                     os.makedirs('saved_images', exist_ok=True)
-                    image.save('saved_images/original_image.png', format='PNG')
+                    image.save(f'saved_images/original_image_{self.counter}.png', format='PNG')
+                    self.counter += 1
+
                 elif camera_type == 'top':
                     msg = CompressedImage()
                     msg.format = 'png'
