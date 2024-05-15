@@ -59,8 +59,8 @@ This process will take a few minutes, and you'll see a lot of information scroll
 CTRL-C kills the local instance (e.g., listener) the first time and then the cloud instance the second time. 
 
 
-## PART 2: SAM with FogROS2 (5 Min)
-Next we will show FogROS2 used to run a cloud instance with [Segment Anything Model](https://github.com/facebookresearch/segment-anything) (SAM).
+## (Bonus) SAM with FogROS2 (5 Min)
+This is a bonus part to run a cloud instance with [Segment Anything Model](https://github.com/facebookresearch/segment-anything) (SAM). Do it only if you are assigned with a physical cloudgripper.
 
 Like in **Part 1**, we have created  `sam_server.py`  and `sam_client.py` which you can look at in the `tutorial_workspace/fogros2_tutorial` folder. We will be running these nodes using two launch files: `sam.aws.launch.py`, which are provided in the `tutorial_workspace/launch` folder in the repository.
 
@@ -69,9 +69,9 @@ run:
 ros2 launch fogros2_tutorial sam.aws.launch.py
 ```
 In this terminal, we launch a server node on the cloud which subscribes to images of the physical robot, loads a SAM model (in this case, we are using the smallest one: "vit_b"), generates masks from the image and then publishes the generated masks. 
-We let it to run by **opening up a new terminal**, and proceed to **PART 3**. 
+While waiting for the machine to launch, please **open up a new terminal**, and proceed with CloudGripper.
 
-## PART 3: CloudGripper (10 Min)
+## PART 2: CloudGripper (10 Min)
 We integrate FogROS2 with [CloudGripper](https://cloudgripper.org/). To interact with the robot, this part assumes that you have already signed up for the robot. You need the assigned robot ID and a robot access API token. 
 
 9. Start launch files
@@ -82,11 +82,12 @@ cd ~/CloudRobotics_tutorial
 ./docker-run.sh
 ```
 
-9.1 (Skip if you only want to run CloudGripper without SAM) Run 
+9.1 **Run only if you ran SAM** 
 ```
 export CYCLONEDDS_URI=file:///fog_ws/src/FogROS2/fogros2/configs/cyclonedds.ubuntu.2204.xml
 ```
-This helps all the messages from CloudGripper to be propagated to FogROS2-enabled Cloud.
+This propagate all the messages from CloudGripper to FogROS2-enabled Cloud.
+
 
 9.2 In the container, run
 ```
@@ -125,13 +126,12 @@ This will enable real-time keyboard control for the Cloudgripper.
     - `,`: Open gripper
 
 
-
 #### Viewing SAM's results 
-Once SAM and CloudGrippper and both up and running, you can look in ~/CloudRobotics_tutorial/tutorial_workspace/launch/saved_images for both the original image and the saved mask image. 
+If you have ran SAM and CloudGrippper and both are up and running, you can look in ~/CloudRobotics_tutorial/tutorial_workspace/launch/saved_images for both the original image and the saved mask image. 
 
 
 ## PART 4: FOG-RTX Data Collection and Management (5 Min)
 All the data is automatically collected through [fog-rt-x](https://github.com/BerkeleyAutomation/fog_x), a cloud based data collection and management. 
 [fog_rtx_recorder.py](./tutorial_workspace/fogros2_tutorial/fog_rtx_recorder.py) shows an example of collecting data from various topics and store them to the cloud. 
-The website will be statically generated at the end of the workshop at link: https://berkeleyautomation.github.io/CloudRobotics_tutorial/  
+The website will be statically generated and posted at the end of the workshop at link: https://berkeleyautomation.github.io/CloudRobotics_tutorial/  
 
