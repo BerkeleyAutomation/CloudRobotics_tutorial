@@ -6,7 +6,7 @@ At the workshop, we will provide pre-provisioned SSH-able machines for convenien
 
 If you successfully followed the [Preparation Doc](./Tutorial_Prep.md) or get a SSH machine from us, you may run the following command to verify your running environment: 
 
-MacOS
+MacOS / Linux
 ```
 cd ~/CloudRobotics_tutorial
 ./docker-run.sh
