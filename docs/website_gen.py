@@ -62,9 +62,9 @@ for dataset in DATASETS:
     )
     dataset_h5_str += f'''
           <div class="checkbox-container">
-            <label for="dataset-{dataset_name_to_dataset_id[dataset]}">
+            <label for="{dataset_name_to_dataset_id[dataset]}">
               <input type="checkbox" class="dataset-checkbox" id="dataset-{dataset_name_to_dataset_id[dataset]}">
-              {dataset} (<span id="dataset-{dataset_name_to_dataset_id[dataset]}-count">0</span>)
+              {dataset} (<span id="{dataset_name_to_dataset_id[dataset]}-count">0</span>)
             </label>
           </div>
     '''
@@ -177,8 +177,8 @@ html_str = "\n".join([
 
   <div class="container mt-3">
     <div class="row">
-      <h1 class="d-md-block d-none">Fog-RTX Dataset Visualizer</h1>
-      <h3 class="d-block d-md-none">Fog-RTX Dataset Visualizer</h3>
+      <h1 class="d-md-block d-none">Fog-RTXxCloudGripper Dataset Visualizer</h1>
+      <h3 class="d-block d-md-none">Fog-RTXxCloudGripper Dataset Visualizer</h3>
       
       <p class="d-md-block d-none ml-3 mb-0 align-self-center">(Collected at ICRA 2024 Cloud Robotics-FogROS2 Tutorial; website template from DROID Visualizer)</p>
       <p class="d-block d-md-none small">(Collected at ICRA 2024 Cloud Robotics-FogROS2 Tutorial; website template from DROID Visualizer)</p>
@@ -227,57 +227,6 @@ html_str = "\n".join([
             <label for="view-4">
               <input type="checkbox" class="view-checkbox" id="view-4">
               Other (<span id="view-4-count">0</span>)
-            </label>
-          </div>
-        </div>
-      
-        <div class="mb-2" id="object-checkbox-group">
-          <h5 class="mb-1">Object Types</h5>
-
-          <div class="checkbox-container">
-            <label for="object-all-checkbox">
-              <input type="checkbox" id="object-all-checkbox" checked>
-              All (<span id="object-all-count">0</span>)
-            </label>
-          </div>
-        
-          <div class="checkbox-container">
-            <label for="object-1">
-              <input type="checkbox" class="object-checkbox" id="object-1">
-              Marker (<span id="object-1-count">0</span>)
-            </label>
-          </div>
-        
-          <div class="checkbox-container">
-            <label for="object-10">
-              <input type="checkbox" class="object-checkbox" id="object-10">
-              Other (<span id="object-10-count">0</span>)
-            </label>
-          </div>
-        </div>
-      
-        <div class="mb-2" id="task-checkbox-group">
-          <h5 class="mb-1">Task Types</h5>
-
-          <div class="checkbox-container">
-            <label for="task-all-checkbox">
-              <input type="checkbox" id="task-all-checkbox" checked>
-              All (<span id="task-all-count">0</span>)
-            </label>
-          </div>
-        
-          <div class="checkbox-container">
-            <label for="task-1">
-              <input type="checkbox" class="task-checkbox" id="task-1">
-              Put (<span id="task-1-count">0</span>)
-            </label>
-          </div>
-    
-
-          <div class="checkbox-container">
-            <label for="task-15">
-              <input type="checkbox" class="task-checkbox" id="task-15">
-              Other (<span id="task-15-count">0</span>)
             </label>
           </div>
         </div>
