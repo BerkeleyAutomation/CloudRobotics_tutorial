@@ -65,7 +65,7 @@ for dataset in DATASETS:
     dataset_h5_str += f'''
           <div class="checkbox-container">
             <label for="{dataset_name_to_dataset_id[dataset]}">
-              <input type="checkbox" class="dataset-checkbox" id="dataset-{dataset_name_to_dataset_id[dataset]}">
+              <input type="checkbox" class="dataset-checkbox" id="{dataset_name_to_dataset_id[dataset]}">
               {dataset} (<span id="{dataset_name_to_dataset_id[dataset]}-count">0</span>)
             </label>
           </div>
