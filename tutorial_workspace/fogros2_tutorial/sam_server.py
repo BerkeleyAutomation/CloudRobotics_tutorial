@@ -38,7 +38,7 @@ class SegmentAnythingServer(Node):
 
         self.subscription = self.create_subscription(
             CompressedImage,
-            '/image/base',
+            '/image/top',
             self.listener_callback,
             2)
 

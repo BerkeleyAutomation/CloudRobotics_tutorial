@@ -59,8 +59,9 @@ class SegmentAnythingClient(Node):
                     # Save a copy of the image sent published
                     image_stream = BytesIO(msg.data)
                     image = Image.open(image_stream)
-                    os.makedirs('saved_images', exist_ok=True)
-                    image.save(f'saved_images/original_image_{self.counter}.png', format='PNG')
+                    os.makedirs('base_images', exist_ok=True)
+                    image.save(f'base_images/original_image.png', format='PNG')
+                    image.save(f'base_images/original_image_{self.counter}.png', format='PNG')
                     self.counter += 1
 
                 elif camera_type == 'top':
@@ -68,6 +69,11 @@ class SegmentAnythingClient(Node):
                     msg.format = 'png'
                     msg.data = np.array(cv2.imencode('.png', cv_image)[1]).tobytes()
                     self.publisher_top.publish(msg)
+                    image_stream = BytesIO(msg.data)
+                    image = Image.open(image_stream)
+                    os.makedirs('top_images', exist_ok=True)
+                    image.save(f'top_images/original_image.png', format='PNG')
+                    image.save(f'top_images/original_image_{self.counter}.png', format='PNG')
                     self.get_logger().info('Top camera image published.')
             else:
                 self.get_logger().info(f'Failed to receive image from {camera_type} camera: ' + response.message)
