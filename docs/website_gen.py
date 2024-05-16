@@ -466,8 +466,6 @@ json_h5_str,
 
     const filters = [
       'view',
-      'object',
-      'task',
       'dataset',
     ];
 
