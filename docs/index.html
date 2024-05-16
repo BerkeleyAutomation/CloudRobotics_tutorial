@@ -181,6 +181,20 @@
             </label>
           </div>
     
+          <div class="checkbox-container">
+            <label for="dataset-dataset-1">
+              <input type="checkbox" class="dataset-checkbox" id="dataset-dataset-1">
+              robot4 (<span id="dataset-dataset-1-count">0</span>)
+            </label>
+          </div>
+    
+          <div class="checkbox-container">
+            <label for="dataset-dataset-1">
+              <input type="checkbox" class="dataset-checkbox" id="dataset-dataset-1">
+              robot7 (<span id="dataset-dataset-1-count">0</span>)
+            </label>
+          </div>
+    
 
 
         </div>
@@ -396,18 +410,32 @@
     // Video metadata
     const videos = [
 
-JSON.parse('{"poster": "videos/demo_ds_0__image_base.jpg", "src": "videos/demo_ds_0__image_base.mp4", "info": "Episode: 0<br>Begin: Mon Apr 29 07:59:11 2024<br>End: Mon Apr 29 07:59:21 2024", "dataset_id": "dataset-1", "view_id": "view-2"}'),
-JSON.parse('{"poster": "videos/demo_ds_0__image_top.jpg", "src": "videos/demo_ds_0__image_top.mp4", "info": "Episode: 0<br>Begin: Mon Apr 29 07:59:11 2024<br>End: Mon Apr 29 07:59:21 2024", "dataset_id": "dataset-1", "view_id": "view-3"}'),
-JSON.parse('{"poster": "videos/demo_ds_1__image_base.jpg", "src": "videos/demo_ds_1__image_base.mp4", "info": "Episode: 1<br>Begin: Mon Apr 29 07:59:35 2024<br>End: Mon Apr 29 07:59:51 2024", "dataset_id": "dataset-1", "view_id": "view-2"}'),
-JSON.parse('{"poster": "videos/demo_ds_1__image_top.jpg", "src": "videos/demo_ds_1__image_top.mp4", "info": "Episode: 1<br>Begin: Mon Apr 29 07:59:35 2024<br>End: Mon Apr 29 07:59:51 2024", "dataset_id": "dataset-1", "view_id": "view-3"}'),
-JSON.parse('{"poster": "videos/demo_ds_2__image_base.jpg", "src": "videos/demo_ds_2__image_base.mp4", "info": "Episode: 2<br>Begin: Mon Apr 29 08:00:04 2024<br>End: Mon Apr 29 08:00:10 2024", "dataset_id": "dataset-1", "view_id": "view-2"}'),
-JSON.parse('{"poster": "videos/demo_ds_2__image_top.jpg", "src": "videos/demo_ds_2__image_top.mp4", "info": "Episode: 2<br>Begin: Mon Apr 29 08:00:04 2024<br>End: Mon Apr 29 08:00:10 2024", "dataset_id": "dataset-1", "view_id": "view-3"}'),
-JSON.parse('{"poster": "videos/demo_ds_3__image_base.jpg", "src": "videos/demo_ds_3__image_base.mp4", "info": "Episode: 3<br>Begin: Mon Apr 29 15:22:32 2024<br>End: Mon Apr 29 15:22:46 2024", "dataset_id": "dataset-1", "view_id": "view-2"}'),
-JSON.parse('{"poster": "videos/demo_ds_3__image_top.jpg", "src": "videos/demo_ds_3__image_top.mp4", "info": "Episode: 3<br>Begin: Mon Apr 29 15:22:32 2024<br>End: Mon Apr 29 15:22:46 2024", "dataset_id": "dataset-1", "view_id": "view-3"}'),
-JSON.parse('{"poster": "videos/demo_ds_4__image_base.jpg", "src": "videos/demo_ds_4__image_base.mp4", "info": "Episode: 4<br>Begin: Mon Apr 29 15:22:51 2024<br>End: Mon Apr 29 15:24:05 2024", "dataset_id": "dataset-1", "view_id": "view-2"}'),
-JSON.parse('{"poster": "videos/demo_ds_4__image_top.jpg", "src": "videos/demo_ds_4__image_top.mp4", "info": "Episode: 4<br>Begin: Mon Apr 29 15:22:51 2024<br>End: Mon Apr 29 15:24:05 2024", "dataset_id": "dataset-1", "view_id": "view-3"}'),
-JSON.parse('{"poster": "videos/demo_ds_5__image_base.jpg", "src": "videos/demo_ds_5__image_base.mp4", "info": "Episode: 5<br>Begin: Mon Apr 29 15:30:00 2024<br>End: Mon Apr 29 15:30:38 2024", "dataset_id": "dataset-1", "view_id": "view-2"}'),
-JSON.parse('{"poster": "videos/demo_ds_5__image_top.jpg", "src": "videos/demo_ds_5__image_top.mp4", "info": "Episode: 5<br>Begin: Mon Apr 29 15:30:00 2024<br>End: Mon Apr 29 15:30:38 2024", "dataset_id": "dataset-1", "view_id": "view-3"}'),
+JSON.parse('{"poster": "videos/robot7_0__image_base.jpg", "src": "videos/robot7_0__image_base.mp4", "info": "Episode: 0<br>Begin: Thu May 16 05:19:51 2024<br>End: Thu May 16 05:20:01 2024", "dataset_id": "dataset-1", "view_id": "view-2"}'),
+JSON.parse('{"poster": "videos/robot7_0__image_top.jpg", "src": "videos/robot7_0__image_top.mp4", "info": "Episode: 0<br>Begin: Thu May 16 05:19:51 2024<br>End: Thu May 16 05:20:01 2024", "dataset_id": "dataset-1", "view_id": "view-3"}'),
+JSON.parse('{"poster": "videos/robot7_1__image_base.jpg", "src": "videos/robot7_1__image_base.mp4", "info": "Episode: 1<br>Begin: Thu May 16 05:20:23 2024<br>End: Thu May 16 05:20:31 2024", "dataset_id": "dataset-1", "view_id": "view-2"}'),
+JSON.parse('{"poster": "videos/robot7_1__image_top.jpg", "src": "videos/robot7_1__image_top.mp4", "info": "Episode: 1<br>Begin: Thu May 16 05:20:23 2024<br>End: Thu May 16 05:20:31 2024", "dataset_id": "dataset-1", "view_id": "view-3"}'),
+JSON.parse('{"poster": "videos/robot7_2__image_base.jpg", "src": "videos/robot7_2__image_base.mp4", "info": "Episode: 2<br>Begin: Thu May 16 07:43:10 2024<br>End: Thu May 16 07:43:32 2024", "dataset_id": "dataset-1", "view_id": "view-2"}'),
+JSON.parse('{"poster": "videos/robot7_2__image_top.jpg", "src": "videos/robot7_2__image_top.mp4", "info": "Episode: 2<br>Begin: Thu May 16 07:43:10 2024<br>End: Thu May 16 07:43:32 2024", "dataset_id": "dataset-1", "view_id": "view-3"}'),
+JSON.parse('{"poster": "videos/robot7_3__image_base.jpg", "src": "videos/robot7_3__image_base.mp4", "info": "Episode: 3<br>Begin: Thu May 16 07:44:12 2024<br>End: Thu May 16 07:45:52 2024", "dataset_id": "dataset-1", "view_id": "view-2"}'),
+JSON.parse('{"poster": "videos/robot7_3__image_top.jpg", "src": "videos/robot7_3__image_top.mp4", "info": "Episode: 3<br>Begin: Thu May 16 07:44:12 2024<br>End: Thu May 16 07:45:52 2024", "dataset_id": "dataset-1", "view_id": "view-3"}'),
+JSON.parse('{"poster": "videos/robot7_4__image_base.jpg", "src": "videos/robot7_4__image_base.mp4", "info": "Episode: 4<br>Begin: Thu May 16 07:46:36 2024<br>End: Thu May 16 07:47:00 2024", "dataset_id": "dataset-1", "view_id": "view-2"}'),
+JSON.parse('{"poster": "videos/robot7_4__image_top.jpg", "src": "videos/robot7_4__image_top.mp4", "info": "Episode: 4<br>Begin: Thu May 16 07:46:36 2024<br>End: Thu May 16 07:47:00 2024", "dataset_id": "dataset-1", "view_id": "view-3"}'),
+JSON.parse('{"poster": "videos/robot7_5__image_base.jpg", "src": "videos/robot7_5__image_base.mp4", "info": "Episode: 5<br>Begin: Thu May 16 07:47:01 2024<br>End: Thu May 16 07:47:24 2024", "dataset_id": "dataset-1", "view_id": "view-2"}'),
+JSON.parse('{"poster": "videos/robot7_5__image_top.jpg", "src": "videos/robot7_5__image_top.mp4", "info": "Episode: 5<br>Begin: Thu May 16 07:47:01 2024<br>End: Thu May 16 07:47:24 2024", "dataset_id": "dataset-1", "view_id": "view-3"}'),
+JSON.parse('{"poster": "videos/robot7_6__image_base.jpg", "src": "videos/robot7_6__image_base.mp4", "info": "Episode: 6<br>Begin: Thu May 16 07:48:16 2024<br>End: Thu May 16 07:48:42 2024", "dataset_id": "dataset-1", "view_id": "view-2"}'),
+JSON.parse('{"poster": "videos/robot7_6__image_top.jpg", "src": "videos/robot7_6__image_top.mp4", "info": "Episode: 6<br>Begin: Thu May 16 07:48:16 2024<br>End: Thu May 16 07:48:42 2024", "dataset_id": "dataset-1", "view_id": "view-3"}'),
+JSON.parse('{"poster": "videos/robot7_7__image_base.jpg", "src": "videos/robot7_7__image_base.mp4", "info": "Episode: 7<br>Begin: Thu May 16 07:50:04 2024<br>End: Thu May 16 07:51:28 2024", "dataset_id": "dataset-1", "view_id": "view-2"}'),
+JSON.parse('{"poster": "videos/robot7_7__image_top.jpg", "src": "videos/robot7_7__image_top.mp4", "info": "Episode: 7<br>Begin: Thu May 16 07:50:04 2024<br>End: Thu May 16 07:51:28 2024", "dataset_id": "dataset-1", "view_id": "view-3"}'),
+JSON.parse('{"poster": "videos/robot7_8__image_base.jpg", "src": "videos/robot7_8__image_base.mp4", "info": "Episode: 8<br>Begin: Thu May 16 07:52:40 2024<br>End: Thu May 16 07:52:48 2024", "dataset_id": "dataset-1", "view_id": "view-2"}'),
+JSON.parse('{"poster": "videos/robot7_8__image_top.jpg", "src": "videos/robot7_8__image_top.mp4", "info": "Episode: 8<br>Begin: Thu May 16 07:52:40 2024<br>End: Thu May 16 07:52:48 2024", "dataset_id": "dataset-1", "view_id": "view-3"}'),
+JSON.parse('{"poster": "videos/robot7_9__image_base.jpg", "src": "videos/robot7_9__image_base.mp4", "info": "Episode: 9<br>Begin: Thu May 16 07:55:01 2024<br>End: Thu May 16 07:55:21 2024", "dataset_id": "dataset-1", "view_id": "view-2"}'),
+JSON.parse('{"poster": "videos/robot7_9__image_top.jpg", "src": "videos/robot7_9__image_top.mp4", "info": "Episode: 9<br>Begin: Thu May 16 07:55:01 2024<br>End: Thu May 16 07:55:21 2024", "dataset_id": "dataset-1", "view_id": "view-3"}'),
+JSON.parse('{"poster": "videos/robot7_10__image_base.jpg", "src": "videos/robot7_10__image_base.mp4", "info": "Episode: 10<br>Begin: Thu May 16 07:55:26 2024<br>End: Thu May 16 07:55:42 2024", "dataset_id": "dataset-1", "view_id": "view-2"}'),
+JSON.parse('{"poster": "videos/robot7_10__image_top.jpg", "src": "videos/robot7_10__image_top.mp4", "info": "Episode: 10<br>Begin: Thu May 16 07:55:26 2024<br>End: Thu May 16 07:55:42 2024", "dataset_id": "dataset-1", "view_id": "view-3"}'),
+JSON.parse('{"poster": "videos/robot7_11__image_base.jpg", "src": "videos/robot7_11__image_base.mp4", "info": "Episode: 11<br>Begin: Thu May 16 07:55:48 2024<br>End: Thu May 16 07:57:27 2024", "dataset_id": "dataset-1", "view_id": "view-2"}'),
+JSON.parse('{"poster": "videos/robot7_11__image_top.jpg", "src": "videos/robot7_11__image_top.mp4", "info": "Episode: 11<br>Begin: Thu May 16 07:55:48 2024<br>End: Thu May 16 07:57:27 2024", "dataset_id": "dataset-1", "view_id": "view-3"}'),
+JSON.parse('{"poster": "videos/robot7_12__image_base.jpg", "src": "videos/robot7_12__image_base.mp4", "info": "Episode: 12<br>Begin: Thu May 16 07:58:12 2024<br>End: Thu May 16 07:58:20 2024", "dataset_id": "dataset-1", "view_id": "view-2"}'),
+JSON.parse('{"poster": "videos/robot7_12__image_top.jpg", "src": "videos/robot7_12__image_top.mp4", "info": "Episode: 12<br>Begin: Thu May 16 07:58:12 2024<br>End: Thu May 16 07:58:20 2024", "dataset_id": "dataset-1", "view_id": "view-3"}'),
 
 
     ];

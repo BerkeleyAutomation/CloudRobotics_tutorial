@@ -11,7 +11,8 @@ import boto3
 s3 = boto3.client('s3')
 response = s3.list_objects_v2(Bucket='cloud-robotics-workshop')
 DATASETS = [obj['Key'].split("/")[0] for obj in response['Contents']]
-DATASETS = [dataset.strip(".parquet") for dataset in DATASETS if dataset.endswith("parquet")]
+print(DATASETS)
+DATASETS = [dataset.removesuffix(".parquet") for dataset in DATASETS if dataset.endswith("parquet")]
 print(DATASETS)
 
 viz_keys = [
@@ -22,11 +23,6 @@ viz_keys = [
 OUTPUT_FPS = 1
 
 # for dataset_name in DATASETS:
-dataset_name = "demo_ds"
-dataset_df = fog_x.dataset.Dataset(
-    name=dataset_name,
-    path="s3://cloud-robotics-workshop",
-)
 # e = dataset.new_episode()   
 # e.add_image("image", np.random.rand(100, 100, 3) * 255)
 
@@ -58,6 +54,12 @@ for dataset in DATASETS:
 
 dataset_h5_str = ""
 for dataset in DATASETS:
+    print(dataset)
+    dataset_name = dataset
+    dataset_df = fog_x.dataset.Dataset(
+        name=dataset,
+        path="s3://cloud-robotics-workshop",
+    )
     dataset_h5_str += f'''
           <div class="checkbox-container">
             <label for="dataset-{dataset_name_to_dataset_id[dataset]}">
@@ -70,7 +72,7 @@ for dataset in DATASETS:
     # JSON.parse('{"dataset_id": "dataset-1", "task_id": "task-2", "object_id": "object-10", "view_id": "view-3"}'),
     json_h5_str = ""
     episode_id = 0
-    dataset_name = dataset
+    
     for episode in dataset_df.read_by(
         episode_info=dataset_df.get_episode_info()
     ):
@@ -91,6 +93,7 @@ for dataset in DATASETS:
             json_h5_str += f"JSON.parse('{json_str}'),\n"
             
             temp_vid_output_path = f"/tmp/{filename}"
+            print(episode.collect())
             for frame in episode.collect()[key]:
                 image = np.load(io.BytesIO(frame))
           
