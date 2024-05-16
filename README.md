@@ -104,6 +104,13 @@ In the new terminal, run
 cd ~/CloudRobotics_tutorial
 ./docker-run.sh
 ```
+
+10.1 **Run only if you ran SAM** 
+```
+export CYCLONEDDS_URI=file:///fog_ws/src/FogROS2/fogros2/configs/cyclonedds.ubuntu.2204.xml
+```
+This propagate all the messages to CloudGripper with the same DDS setup. 
+
 and in the container run 
 ```
 ros2 run teleop_twist_keyboard teleop_twist_keyboard
