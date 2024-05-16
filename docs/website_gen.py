@@ -48,11 +48,13 @@ view_name_to_view_id = {
 }
 
 dataset_name_to_dataset_id = {}
-ds_counter = 1
+ds_counter = 0
 for dataset in DATASETS:
+    ds_counter += 1
     dataset_name_to_dataset_id[dataset] = "dataset-" + str(ds_counter)
 
 dataset_h5_str = ""
+json_h5_str = ""
 for dataset in DATASETS:
     print(dataset)
     dataset_name = dataset
@@ -70,7 +72,7 @@ for dataset in DATASETS:
     '''
 
     # JSON.parse('{"dataset_id": "dataset-1", "task_id": "task-2", "object_id": "object-10", "view_id": "view-3"}'),
-    json_h5_str = ""
+    
     episode_id = 0
     
     for episode in dataset_df.read_by(
@@ -124,7 +126,7 @@ html_str = "\n".join([
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Open-X Dataset Visualizer</title>
+  <title>ICRA 24 Cloud Robotics Dataset Visualizer</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <style>
     #page-overlay {
@@ -177,8 +179,8 @@ html_str = "\n".join([
 
   <div class="container mt-3">
     <div class="row">
-      <h1 class="d-md-block d-none">Fog-RTXxCloudGripper Dataset Visualizer</h1>
-      <h3 class="d-block d-md-none">Fog-RTXxCloudGripper Dataset Visualizer</h3>
+      <h1 class="d-md-block d-none">Fog-RTX x CloudGripper Dataset Visualizer</h1>
+      <h3 class="d-block d-md-none">Fog-RTX x CloudGripper Dataset Visualizer</h3>
       
       <p class="d-md-block d-none ml-3 mb-0 align-self-center">(Collected at ICRA 2024 Cloud Robotics-FogROS2 Tutorial; website template from DROID Visualizer)</p>
       <p class="d-block d-md-none small">(Collected at ICRA 2024 Cloud Robotics-FogROS2 Tutorial; website template from DROID Visualizer)</p>
